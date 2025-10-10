@@ -11,7 +11,7 @@ package com.mycompany.prueba2menu;
 public class main {
 public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(() -> {
-            new VistaMenú().setVisible(true);
+            new VistaMenúADMIN().setVisible(true);
         });
 }
 }

@@ -2,20 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.prueba2menu;
+package Vistas;
 
 /**
  *
  * @author arale
  */
-public class VistaPaís extends javax.swing.JFrame {
+public class VistaIdioma extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPaís.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaIdioma.class.getName());
 
     /**
-     * Creates new form VistaPaís
+     * Creates new form VistaIdioma
      */
-    public VistaPaís() {
+    public VistaIdioma() {
         initComponents();
     }
 
@@ -66,7 +66,7 @@ public class VistaPaís extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VistaPaís().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new VistaIdioma().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

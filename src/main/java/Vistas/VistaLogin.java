@@ -2,7 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.prueba2menu;
+package Vistas;
+import Clases.Usuario;
+import Vistas.VistaMenúADMIN;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 /**
  *
@@ -11,12 +14,16 @@ import javax.swing.JOptionPane;
 public class VistaLogin extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaLogin.class.getName());
+    
+    public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 
     /**
      * Creates new form VistaLogin
      */
     public VistaLogin() {
         initComponents();
+        
+        
     }
 
     /**
@@ -128,8 +135,11 @@ public class VistaLogin extends javax.swing.JFrame {
             M1.setVisible(true);
             dispose();
          
-        }
-        // HACER ELIF PARA USUARIO NORMAL
+        }else if (VistaLogin.listaUsuarios.stream().anyMatch(u -> u.getNombre().equals(txtUsuario.getText()) && u.getContraseña().equals(Pass))) {
+            VistaMenúUSUARIO M2 = new VistaMenúUSUARIO();
+            M2.setVisible(true);
+            dispose();
+            }
         else{
             JOptionPane.showMessageDialog(null, "Datos no coinciden", "Datos erróneos", JOptionPane.ERROR_MESSAGE);       
        }    }//GEN-LAST:event_btnEntrarMouseClicked

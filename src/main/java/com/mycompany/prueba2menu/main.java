@@ -4,6 +4,8 @@
 
 package com.mycompany.prueba2menu;
 
+import Vistas.VistaMenúADMIN;
+
 /**
  *
  * @author FELIP

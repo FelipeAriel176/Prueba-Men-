@@ -17,6 +17,7 @@ public class VistaLogin extends javax.swing.JFrame {
     
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 
+
     /**
      * Creates new form VistaLogin
      */
@@ -136,7 +137,7 @@ public class VistaLogin extends javax.swing.JFrame {
             dispose();
          
         }else if (VistaLogin.listaUsuarios.stream().anyMatch(u -> u.getNombre().equals(txtUsuario.getText()) && u.getContraseña().equals(Pass))) {
-            VistaMenúUSUARIO M2 = new VistaMenúUSUARIO();
+            VistaMenúUSUARIO M2 = new VistaMenúUSUARIO(); //revisar la condicion y tambien si funciona
             M2.setVisible(true);
             dispose();
             }

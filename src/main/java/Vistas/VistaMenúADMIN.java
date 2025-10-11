@@ -21,7 +21,6 @@ public class VistaMenúADMIN extends javax.swing.JFrame {
      */
     public VistaMenúADMIN() {
         initComponents();
-        
     }
 
     /**

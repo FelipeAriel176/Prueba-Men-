@@ -6,6 +6,7 @@ package Vistas;
 import Clases.Usuario;
 import javax.swing.JOptionPane; 
 import static com.mycompany.prueba2menu.main.listaUsuarios;
+
 /**
  *
  * @author FELIP
@@ -92,18 +93,21 @@ public class VistaRegistro extends javax.swing.JFrame {
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
 
-String nombre = txtUsuario.getText(); 
-String pass = txtContraseña.getText(); 
+    String nombre = txtUsuario.getText(); 
+    String pass = txtContraseña.getText(); 
+    
 if (nombre.isEmpty() || pass.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Llene todos los campos.");
     return; 
 }
 
 Usuario nuevoUsuario = new Usuario(nombre, pass);
-
-listaUsuarios.add(nuevoUsuario);
+com.mycompany.prueba2menu.main.listaUsuarios.add(nuevoUsuario);
 
 JOptionPane.showMessageDialog(this, "Usuario registrado con éxito", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+
+com.mycompany.prueba2menu.main.vistaRegistro.setVisible(false);
+com.mycompany.prueba2menu.main.vistaLogin.setVisible(true);
+
 
 VistaLogin login = new VistaLogin();
 login.setVisible(true);

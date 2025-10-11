@@ -9,23 +9,25 @@ package Clases;
  * @author arale
  */
 public class Usuario {
-    private String nombre;
+     private String nombreUsuario;
     private String contraseña;
 
-    public Usuario(String nombre, String contraseña) {
-        this.nombre = nombre;
-        this.contraseña = contraseña;
+    public Usuario(String nombreUsuario, String contrasena) {
+        this.nombreUsuario = nombreUsuario;
+        this.contraseña = contrasena;
     }
-
-    public String getNombre() {
-        return nombre;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
-
-    public String getContraseña() {
+    public String getContrasena() {
         return contraseña;
     }
-    public boolean validar(String nombreIngresado, String contraseñaIngresada) {
-        return this.nombre.equals(nombreIngresado) && this.contraseña.equals(contraseñaIngresada);
+    public Object getNombre() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Object getContraseña() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

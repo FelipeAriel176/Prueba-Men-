@@ -9,30 +9,20 @@ package Clases;
  * @author arale
  */
 public class Usuario {
-     private String nombreUsuario;
-    private String contraseña;
+        private String nombreUsuario;
+        private String contraseña;
 
-    // Constructor para crear un nuevo objeto Usuario
-    public Usuario(String nombreUsuario, String contrasena) {
+public Usuario(String nombreUsuario, String contrasena) {
         this.nombreUsuario = nombreUsuario;
-        this.contraseña = contrasena;
+        this.contraseña = contraseña;
     }
 
-    // Métodos para obtener los datos (getters)
     public String getNombreUsuario() {
         return nombreUsuario;
     }
 
-    public String getContrasena() {
+    public String getContraseña() {
         return contraseña;
     }
+       }
 
-    public Object getNombre() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public Object getContraseña() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-}

@@ -6,6 +6,7 @@ package Vistas;
 import Clases.Usuario;
 import javax.swing.JOptionPane; 
 import static com.mycompany.prueba2menu.main.listaUsuarios;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,6 +14,7 @@ import static com.mycompany.prueba2menu.main.listaUsuarios;
  */
 public class VistaRegistro extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaRegistro.class.getName());
+public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 
     /**
      * Creates new form VistaRegistro
@@ -91,23 +93,20 @@ public class VistaRegistro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
-
     String nombre = txtUsuario.getText(); 
     String pass = txtContraseña.getText(); 
-    
 if (nombre.isEmpty() || pass.isEmpty()) {
     return; 
-}
-
-Usuario nuevoUsuario = new Usuario(nombre, pass);
-com.mycompany.prueba2menu.main.listaUsuarios.add(nuevoUsuario);
-
-JOptionPane.showMessageDialog(this, "Usuario registrado con éxito", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-
-VistaLogin login = new VistaLogin();
-login.setVisible(true);
+}else{
+    
+    
+    Usuario usuario = new Usuario(nombre, pass);
+    listaUsuarios.add(usuario);
+    JOptionPane.showMessageDialog(this, "Usuario registrado con éxito", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+    VistaLogin login = new VistaLogin();
+    login.setVisible(true); 
 this.dispose();    }//GEN-LAST:event_btnRegistrarseActionPerformed
-
+}
     /**
      * @param args the command line arguments
      */

@@ -157,6 +157,7 @@ if (usuario.equals("admin") && contraseña.equals("123")) {
         vistaAdmin.setVisible(true);
         this.dispose();
         return;
+ 
     }//GEN-LAST:event_btnEntrarActionPerformed
  boolean encontrado = false;
     for (Usuario user :main.listaUsuarios) {
@@ -164,13 +165,12 @@ if (usuario.equals("admin") && contraseña.equals("123")) {
             encontrado = true;
             break;
     }
-}
-if (encontrado) {
+} if  (encontrado) {
        VistaMenúUSUARIO vistaUsuario = new VistaMenúUSUARIO();
         vistaUsuario.setVisible(true);
         this.dispose();
 } else 
-JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.","Error", JOptionPane.ERROR_MESSAGE);
+JOptionPane.showMessageDialog(this, "Usuario o contraseña no coinciden.","Error", JOptionPane.ERROR_MESSAGE);
 }
     /**
      * @param args the command line arguments

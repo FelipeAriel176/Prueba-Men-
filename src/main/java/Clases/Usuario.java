@@ -24,5 +24,13 @@ public Usuario(String nombreUsuario, String contrasena) {
     public String getContraseña() {
         return contraseña;
     }
-       }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+}
 

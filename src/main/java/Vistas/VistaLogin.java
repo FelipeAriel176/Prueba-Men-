@@ -140,9 +140,6 @@ public class VistaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContraseñaActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
-com.mycompany.prueba2menu.main.vistaLogin.setVisible(false);
-com.mycompany.prueba2menu.main.vistaRegistro.setVisible(true);
-
         VistaRegistro registro = new VistaRegistro();
         registro.setVisible(true);
         dispose();
@@ -165,8 +162,9 @@ if (usuario.equals("admin") && contraseña.equals("123")) {
     }
 }
 if (encontrado) {
-        com.mycompany.prueba2menu.main.vistaLogin.setVisible(false);
-        com.mycompany.prueba2menu.main.vistaMenúUsuario.setVisible(true);
+       VistaMenúUSUARIO vistaUsuario = new VistaMenúUSUARIO();
+        vistaUsuario.setVisible(true);
+        this.dispose();
 
 } else {
 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.","Error de autenticación", JOptionPane.ERROR_MESSAGE);

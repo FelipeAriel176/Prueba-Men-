@@ -15,12 +15,9 @@ import java.util.ArrayList;
  */
 public class main {
 public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
-
-public static VistaLogin vistaLogin = new VistaLogin();
-    public static VistaRegistro vistaRegistro = new VistaRegistro();
-    public static VistaMenúUSUARIO vistaMenúUsuario = new VistaMenúUSUARIO();
     public static void main(String[] args) {
         VistaLogin login = new VistaLogin();
+        login.setVisible(true);
     }
 }
 

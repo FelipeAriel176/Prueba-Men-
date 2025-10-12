@@ -105,10 +105,6 @@ com.mycompany.prueba2menu.main.listaUsuarios.add(nuevoUsuario);
 
 JOptionPane.showMessageDialog(this, "Usuario registrado con éxito", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
 
-com.mycompany.prueba2menu.main.vistaRegistro.setVisible(false);
-com.mycompany.prueba2menu.main.vistaLogin.setVisible(true);
-
-
 VistaLogin login = new VistaLogin();
 login.setVisible(true);
 this.dispose();    }//GEN-LAST:event_btnRegistrarseActionPerformed

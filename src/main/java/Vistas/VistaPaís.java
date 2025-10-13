@@ -16,7 +16,6 @@ public class VistaPaís extends javax.swing.JFrame {
      */
     public VistaPaís() {
         initComponents();
-        actualizarTabla()
     }
     /**
      * This method is called from within the constructor to initialize the form.

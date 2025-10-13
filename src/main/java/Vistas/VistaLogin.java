@@ -7,6 +7,7 @@ import Clases.Usuario;
 import com.mycompany.prueba2menu.main;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author FELIP
@@ -160,17 +161,17 @@ if (usuario.equals("admin") && contraseña.equals("123")) {
  
     }//GEN-LAST:event_btnEntrarActionPerformed
  boolean encontrado = false;
-    for (Usuario user :main.listaUsuarios) {
+    for (Usuario user : main.listaUsuarios) {
         if (user.getNombreUsuario().equals(usuario) && user.getContraseña().equals(contraseña)) {
             encontrado = true;
             break;
-    }
+        }
 } if  (encontrado) {
-       VistaMenúUSUARIO vistaUsuario = new VistaMenúUSUARIO();
-        vistaUsuario.setVisible(true);
-        this.dispose();
-} else 
+       this.setVisible(false);
+        main.vistaMenuUsuario.setVisible(true);
+} else {
 JOptionPane.showMessageDialog(this, "Usuario o contraseña no coinciden.","Error", JOptionPane.ERROR_MESSAGE);
+}
 }
     /**
      * @param args the command line arguments

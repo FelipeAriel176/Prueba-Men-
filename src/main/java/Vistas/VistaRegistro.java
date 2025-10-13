@@ -4,8 +4,8 @@
  */
 package Vistas;
 import Clases.Usuario;
+import com.mycompany.prueba2menu.main;
 import javax.swing.JOptionPane; 
-import static com.mycompany.prueba2menu.main.listaUsuarios;
 import java.util.ArrayList;
 
 /**
@@ -97,14 +97,13 @@ public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     String pass = txtContraseña.getText(); 
 if (nombre.isEmpty() || pass.isEmpty()) {
     return; 
-}else{
-    
-    
-    Usuario usuario = new Usuario(nombre, pass);
-    listaUsuarios.add(usuario);
+}
+else{
+  Usuario usuario = new Usuario(nombre, pass);
+    main.listaUsuarios.add(usuario);
     JOptionPane.showMessageDialog(this, "Usuario registrado con éxito", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-    VistaLogin login = new VistaLogin();
-    login.setVisible(true); 
+    main.vistaRegistro.setVisible(false);
+    main.vistaLogin.setVisible(true); 
 this.dispose();    }//GEN-LAST:event_btnRegistrarseActionPerformed
 }
     /**

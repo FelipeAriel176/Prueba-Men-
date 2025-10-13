@@ -11,14 +11,13 @@ package Vistas;
 public class VistaPaís extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPaís.class.getName());
-
     /**
      * Creates new form VistaPaís
      */
     public VistaPaís() {
         initComponents();
+        actualizarTabla()
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +42,6 @@ public class VistaPaís extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     /**
      * @param args the command line arguments
      */

@@ -8,17 +8,19 @@ import com.mycompany.prueba2menu.main;
 
 /**
  *
- * @author arale
+ * @author FELIP
  */
-public class VistaPaís extends javax.swing.JFrame {
+public class VistaPaisUSUARIO extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPaís.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPaisUSUARIO.class.getName());
+
     /**
-     * Creates new form VistaPaís
+     * Creates new form VistaPaisUSUARIO
      */
-    public VistaPaís() {
+    public VistaPaisUSUARIO() {
         initComponents();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,12 +30,9 @@ public class VistaPaís extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("PAIS TEMPORAL");
 
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -47,32 +46,25 @@ public class VistaPaís extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnVolver)))
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btnVolver)
+                .addContainerGap(322, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(128, 128, 128)
-                .addComponent(jLabel1)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addGap(0, 286, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-    this.setVisible(false); 
-    main.vistaMenuAdmin.setVisible(true);
+        this.setVisible(false);
+        main.vistaMenuUsuario.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -95,11 +87,10 @@ public class VistaPaís extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VistaPaís().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new VistaPaisUSUARIO().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

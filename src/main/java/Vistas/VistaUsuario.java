@@ -4,7 +4,6 @@
  */
 package Vistas;
 
-import Clases.Usuario;
 import com.mycompany.prueba2menu.main;
 
 /**

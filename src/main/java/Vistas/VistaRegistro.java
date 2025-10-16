@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vistas;
-import Clases.Usuario;
+import Modelo.Usuario;
 import com.mycompany.prueba2menu.main;
 import javax.swing.JOptionPane; 
 import java.util.ArrayList;

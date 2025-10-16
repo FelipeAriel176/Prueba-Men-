@@ -4,8 +4,8 @@
 
 package com.mycompany.prueba2menu;
 
-import Clases.Pais;
-import Clases.Usuario;
+import Modelo.Pais;
+import Modelo.Usuario;
 import Vistas.VistaLogin;
 import java.util.ArrayList;
 import Vistas.VistaMenúADMIN;

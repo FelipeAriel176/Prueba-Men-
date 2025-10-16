@@ -54,8 +54,8 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addComponent(btnVolver)
+                .addContainerGap(271, Short.MAX_VALUE))
         );
 
         pack();

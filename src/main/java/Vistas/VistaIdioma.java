@@ -62,8 +62,8 @@ public class VistaIdioma extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(113, 113, 113)
+                .addComponent(btnVolver)
+                .addGap(104, 104, 104)
                 .addComponent(jLabel1)
                 .addContainerGap(151, Short.MAX_VALUE))
         );

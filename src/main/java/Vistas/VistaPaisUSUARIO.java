@@ -53,8 +53,9 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 286, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btnVolver)
+                .addContainerGap(271, Short.MAX_VALUE))
         );
 
         pack();

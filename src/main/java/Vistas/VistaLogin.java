@@ -22,6 +22,7 @@ public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
      */
     public VistaLogin() {
         initComponents();
+        this.setLocationRelativeTo(null);
         
         
     }
@@ -169,6 +170,8 @@ if (usuario.equals("admin") && contraseña.equals("123")) {
 } if  (encontrado) {
        this.setVisible(false);
         main.vistaMenuUsuario.setVisible(true);
+        this.dispose();
+
 } else {
 JOptionPane.showMessageDialog(this, "Usuario o contraseña no coinciden.","Error", JOptionPane.ERROR_MESSAGE);
 }

@@ -19,6 +19,8 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
      */
     public VistaPaisUSUARIO() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.dispose();
     }
 
     /**
@@ -85,6 +87,7 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         this.setVisible(false);
         main.vistaMenuUsuario.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     /**

@@ -46,6 +46,7 @@ public class VistaPaís extends javax.swing.JFrame {
      */
     public VistaPaís() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,6 +106,12 @@ public class VistaPaís extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblPaises);
 
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+
         txtRegion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRegionActionPerformed(evt);
@@ -126,6 +133,11 @@ public class VistaPaís extends javax.swing.JFrame {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -280,6 +292,7 @@ public class VistaPaís extends javax.swing.JFrame {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
     this.setVisible(false); 
     main.vistaMenuAdmin.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void txtRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegionActionPerformed
@@ -322,6 +335,14 @@ public class VistaPaís extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+
+    }//GEN-LAST:event_btnModificarActionPerformed
     /**
      * @param args the command line arguments
      */

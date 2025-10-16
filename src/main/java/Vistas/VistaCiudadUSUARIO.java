@@ -19,6 +19,7 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
      */
     public VistaCiudadUSUARIO() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -64,6 +65,7 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         this.setVisible(false);
         main.vistaMenuUsuario.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
@@ -90,7 +92,6 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new VistaCiudadUSUARIO().setVisible(true));
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;
     // End of variables declaration//GEN-END:variables

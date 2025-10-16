@@ -18,6 +18,7 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
      */
     public VistaMenúUSUARIO() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -118,21 +119,25 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
     this.setVisible(false);
     main.vistaLogin.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCiudadesActionPerformed
         VistaCiudadUSUARIO CIUDAD = new VistaCiudadUSUARIO();
         CIUDAD.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCiudadesActionPerformed
 
     private void btnPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaisesActionPerformed
         VistaPaisUSUARIO PAIS = new VistaPaisUSUARIO();
         PAIS.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnPaisesActionPerformed
 
     private void btnIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIdiomaActionPerformed
         VistaIdiomaUSUARIO IDIOMA = new VistaIdiomaUSUARIO();
         IDIOMA.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnIdiomaActionPerformed
 
     /**

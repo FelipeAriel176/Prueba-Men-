@@ -19,6 +19,7 @@ public class VistaIdioma extends javax.swing.JFrame {
      */
     public VistaIdioma() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -74,6 +75,8 @@ public class VistaIdioma extends javax.swing.JFrame {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
     this.setVisible(false);
     main.vistaMenuAdmin.setVisible(true);
+    this.dispose();
+
     }//GEN-LAST:event_btnVolverActionPerformed
 
     /**

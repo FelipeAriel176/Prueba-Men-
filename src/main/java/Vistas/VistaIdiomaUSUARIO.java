@@ -19,6 +19,7 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
      */
     public VistaIdiomaUSUARIO() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

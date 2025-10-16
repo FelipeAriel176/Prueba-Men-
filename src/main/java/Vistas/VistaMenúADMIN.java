@@ -19,6 +19,7 @@ public class VistaMenúADMIN extends javax.swing.JFrame {
      */
     public VistaMenúADMIN() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -244,6 +245,8 @@ public class VistaMenúADMIN extends javax.swing.JFrame {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         this.setVisible(false);
         main.vistaLogin.setVisible(true);
+        this.dispose();
+
     }//GEN-LAST:event_btnVolverActionPerformed
 
     /**

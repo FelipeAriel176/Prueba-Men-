@@ -21,6 +21,8 @@ public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
      */
     public VistaRegistro() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.dispose();
     }
 
     /**

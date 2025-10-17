@@ -27,6 +27,7 @@ public class main {
     public static VistaCiudadUSUARIO vistaCiudadUsuario = new VistaCiudadUSUARIO();
     public static VistaIdiomaUSUARIO vistaIdiomaUsuario = new VistaIdiomaUSUARIO();
     public static ArrayList<Pais> listaPaises = new ArrayList<>();
+    public static ArrayList<Modelo.Ciudad> listaCiudades = new ArrayList<>();
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
         public static void main(String[] args) {
         VistaLogin login = new VistaLogin();

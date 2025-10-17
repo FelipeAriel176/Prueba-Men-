@@ -24,20 +24,20 @@ public class VistaPaís extends javax.swing.JFrame {
     
     for (Modelo.Pais p : com.mycompany.prueba2menu.main.listaPaises) {
         modeloTabla.addRow(new Object[]{
-            p.getNombre(),
-            p.getContinente(),
-            p.getPoblacion(), 
-            p.getCodigo(),
+                p.getNombre(),
+                p.getContinente(),
+                p.getPoblacion(), 
+                p.getCodigo(),
         });
-    }
-    tblPaises.setModel(modeloTabla);
-     }
+        }
+        tblPaises.setModel(modeloTabla);
+        }
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPaís.class.getName());
     /**
      * Creates new form VistaPaís
      */
-    public VistaPaís() {
+        public VistaPaís() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -247,6 +247,7 @@ public class VistaPaís extends javax.swing.JFrame {
         txtPoblacion.setText("");      
         txtCodigo.setText("");
         filaSeleccionada = -1;
+        tblPaises.clearSelection();
          }
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
     this.setVisible(false); 
@@ -260,21 +261,32 @@ public class VistaPaís extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         String nombre = txtNombre.getText().trim();
+        String continente = txtContinente.getText().trim(); 
+        
         if (nombre.isEmpty()) {
         JOptionPane.showMessageDialog(this, "El nombre es obligatorio.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
         try {
-            double Codigo = Double.parseDouble(txtCodigo.getText().trim());
-            double poblacion = Double.parseDouble(txtPoblacion.getText().trim());
+                int Codigo = Integer.parseInt(txtCodigo.getText().trim());
+                int poblacion = Integer.parseInt(txtPoblacion.getText().trim());
+
+            if (poblacion <= 0) {
+            JOptionPane.showMessageDialog(this, "La población debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+            
         Modelo.Pais nuevoPais = new Modelo.Pais(
             txtNombre.getText().trim(),
             txtContinente.getText().trim(),
             poblacion, Codigo);
         com.mycompany.prueba2menu.main.listaPaises.add(nuevoPais);
+        
         actualizarTabla(); 
+        NuevoCampo();
         JOptionPane.showMessageDialog(this, "País agregado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } catch (NumberFormatException e) {
+        } 
+        catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Código o población debe tener un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -302,10 +314,29 @@ public class VistaPaís extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Seleccione el país a modificar", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
+    
+    String nombre = txtNombre.getText().trim();
+    if (nombre.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "El nombre es obligatorio.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    String continente = txtContinente.getText().trim();
+    if (continente.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "El continente es obligatorio.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
     try {
     Modelo.Pais paisAEditar = com.mycompany.prueba2menu.main.listaPaises.get(filaSeleccionada);
-    double nuevaPoblacion = Double.parseDouble(txtPoblacion.getText().trim());
-    double nuevoCodigo = Double.parseDouble(txtCodigo.getText().trim());
+    int nuevaPoblacion = Integer.parseInt(txtPoblacion.getText().trim());                
+    int nuevoCodigo = Integer.parseInt(txtCodigo.getText().trim());
+    
+    if (nuevaPoblacion <= 0) {
+                JOptionPane.showMessageDialog(this, "La población debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+    }
+    
     paisAEditar.setNombre(txtNombre.getText().trim());
     paisAEditar.setContinente(txtContinente.getText().trim());
     paisAEditar.setCodigo(nuevoCodigo);
@@ -315,7 +346,7 @@ public class VistaPaís extends javax.swing.JFrame {
         NuevoCampo();
         JOptionPane.showMessageDialog(this, "País modificado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "La Población y código deben tener números válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "La población y código deben tener números válidos.", "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_btnModificarActionPerformed
 

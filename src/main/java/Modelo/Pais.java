@@ -9,14 +9,14 @@ package Modelo;
  * @author FELIP
  */
 public class Pais {
-    double codigo;
+    int codigo;
     String nombre;
     String continente;
-    double poblacion;
+    int poblacion;
     public Pais() {   
     }
 
-    public Pais(String nombre, String continente, double poblacion, double codigo) {
+    public Pais(String nombre, String continente, int poblacion, int codigo) {
         this.nombre = nombre;
         this.continente = continente;
         this.poblacion = poblacion;
@@ -27,7 +27,7 @@ public class Pais {
         return codigo;
     }
 
-    public void setCodigo(double codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
@@ -51,7 +51,7 @@ public class Pais {
         return poblacion;
     }
 
-    public void setPoblacion(double poblacion) {
+    public void setPoblacion(int poblacion) {
         this.poblacion = poblacion;
     }
     @Override

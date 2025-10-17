@@ -14,7 +14,6 @@ import Vistas.VistaRegistro;
 import Vistas.VistaPaisUSUARIO;
 import Vistas.VistaIdiomaUSUARIO;
 import Vistas.VistaCiudadUSUARIO;
-
 /**
  *
  * @author FELIP

@@ -47,13 +47,13 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Continente", "Region", "Poblacion", "Año de independencia", "PIB", "Forma de gobierno", "Jefe de estado", "Capital"
+                "Nombre", "Continente", "Poblacion", "Código"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -65,20 +65,20 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnVolver)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(724, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(195, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnVolver)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();

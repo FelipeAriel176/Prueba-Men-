@@ -223,8 +223,7 @@ public class VistaMenúADMIN extends javax.swing.JFrame {
 
     private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
         VistaUsuario USER = new VistaUsuario();
-        USER.setVisible(true);
-                       
+        USER.setVisible(true);                       
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
     private void btnCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCiudadesActionPerformed

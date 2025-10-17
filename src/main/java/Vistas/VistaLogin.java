@@ -3,28 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vistas;
-import Modelo.Usuario;
-import com.mycompany.prueba2menu.main;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
+import Modelo.Usuario;
+import static com.mycompany.prueba2menu.main.listaUsuarios;
+import javax.swing.JOptionPane;
 /**
  *
  * @author FELIP
  */
 public class VistaLogin extends javax.swing.JFrame {
-    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaLogin.class.getName());
     
-public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     /**
      * Creates new form VistaLogin
      */
     public VistaLogin() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
-        
     }
 
     /**
@@ -138,11 +133,8 @@ public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContraseñaActionPerformed
-    private void txtUsuarioActionPerfomed(java.awt.event.ActionEvent evt){
-    
-}
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
-        String name = txtUsuario.getText();
+    String name = txtUsuario.getText();
         String pass = txtContraseña.getText();
         Usuario usuario = new Usuario(name, pass);
         listaUsuarios.add(usuario);
@@ -153,28 +145,26 @@ public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         String usuario = txtUsuario.getText();
-        String contraseña = new String(txtContraseña.getPassword());
-if (usuario.equals("admin") && contraseña.equals("123")) {
-        VistaMenúADMIN vistaAdmin = new VistaMenúADMIN();
-        vistaAdmin.setVisible(true);
-        this.dispose();
-        return;
- 
+        String contraseña = new String(txtContraseña.getPassword()).trim();
+    if (usuario.equals("admin") && contraseña.equals("123")) {
+        this.setVisible(false);
+        VistaMenúADMIN MenuA = new VistaMenúADMIN();
+        MenuA.setVisible(true);
+            return;
     }//GEN-LAST:event_btnEntrarActionPerformed
- boolean encontrado = false;
-    for (Usuario user : main.listaUsuarios) {
-        if (user.getNombreUsuario().equals(usuario) && user.getContraseña().equals(contraseña)) {
-            encontrado = true;
-            break;
+    boolean encontrado = false;
+for (Modelo.Usuario user : com.mycompany.prueba2menu.main.listaUsuarios) {
+    if (user.getNombreUsuario().equalsIgnoreCase(usuario) && user.getContraseña().equals(contraseña)) {
+    encontrado = true;
+    break;
         }
-} if  (encontrado) {
-       this.setVisible(false);
-        main.vistaMenuUsuario.setVisible(true);
-        this.dispose();
-
-} else {
-JOptionPane.showMessageDialog(this, "Usuario o contraseña no coinciden.","Error", JOptionPane.ERROR_MESSAGE);
-}
+} 
+    if (encontrado) {
+    this.setVisible(false);
+    com.mycompany.prueba2menu.main.vistaMenuUsuario.setVisible(true);
+}   else {
+    JOptionPane.showMessageDialog(this, "Usuario o contraseña no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }
     /**
      * @param args the command line arguments

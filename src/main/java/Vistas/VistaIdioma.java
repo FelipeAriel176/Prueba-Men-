@@ -50,23 +50,22 @@ public class VistaIdioma extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnVolver)))
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btnVolver)
+                .addContainerGap(322, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(144, 144, 144))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnVolver)
-                .addGap(104, 104, 104)
+                .addGap(106, 106, 106)
                 .addComponent(jLabel1)
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
 
         pack();

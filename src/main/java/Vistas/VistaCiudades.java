@@ -22,14 +22,12 @@ public class VistaCiudades extends javax.swing.JFrame {
     modeloTabla.addColumn("Nombre");
     modeloTabla.addColumn("Distrito");
     modeloTabla.addColumn("Población");
-    modeloTabla.addColumn("País");
     
     for (Modelo.Ciudad c : com.mycompany.prueba2menu.main.listaCiudades) {
         modeloTabla.addRow(new Object[]{
             c.getNombre(),
             c.getDistrito(),
-            c.getPoblacion(),
-            c.getPais().getNombre() 
+            c.getPoblacion()
         });
     }
         tblCiudades.setModel(modeloTabla);
@@ -38,7 +36,7 @@ public class VistaCiudades extends javax.swing.JFrame {
     private void cargarPaises() {
     
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();    
-        modelo.addElement(" Selecciona un país");    
+        modelo.addElement("Selecciona un pais");    
     
     for (Pais p : com.mycompany.prueba2menu.main.listaPaises) {
         modelo.addElement(p);
@@ -220,21 +218,29 @@ public class VistaCiudades extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
     String nombre = txtNombreCiudad.getText().trim();
     String distrito = txtDistrito.getText().trim();
-    Pais paisSeleccionado = (Pais)cmbPais.getSelectedItem();
+    String poblacionTexto = txtPoblacion.getText().trim();
     Object itemSeleccionado = cmbPais.getSelectedItem();
     
-    if (nombre.isEmpty() || distrito.isEmpty() || txtPoblacion.getText().trim().isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Debe completar todos los campos de texto.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
+     if (nombre.isEmpty() || distrito.isEmpty() || poblacionTexto.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe completar todos los campos de texto.", "Error de Campos", JOptionPane.ERROR_MESSAGE);
+        return; 
     }
     
-   if (itemSeleccionado == null || itemSeleccionado.toString().contains("Seleccione un País")) {
+  if (itemSeleccionado == null || itemSeleccionado.toString().contains("Seleccione un pais")) {
         JOptionPane.showMessageDialog(this, "Debe seleccionar un País de la lista.", "Error de Relación", JOptionPane.ERROR_MESSAGE);
-        return;
+        return; 
     }
+  
     try {
-        int poblacion = Integer.parseInt(txtPoblacion.getText().trim());
-        paisSeleccionado = (Modelo.Pais) itemSeleccionado;
+       int poblacion = Integer.parseInt(poblacionTexto);
+
+        if (poblacion <= 0) {
+            JOptionPane.showMessageDialog(this, "La Población debe ser un número mayor que cero.", "Error de Rango", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        itemSeleccionado = (Modelo.Pais) itemSeleccionado;   
+        Modelo.Pais paisSeleccionado = (Modelo.Pais) itemSeleccionado;
         Modelo.Ciudad nuevaCiudad = new Modelo.Ciudad(
                 nombre,
                 distrito,

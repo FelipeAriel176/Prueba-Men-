@@ -19,6 +19,11 @@ import Vistas.VistaCiudadUSUARIO;
  * @author FELIP
  */
 public class main {
+    
+    public static ArrayList<Pais> listaPaises = new ArrayList<>();
+    public static ArrayList<Modelo.Ciudad> listaCiudades = new ArrayList<>();
+    public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+    
     public static VistaMenúADMIN vistaMenuAdmin = new VistaMenúADMIN();
     public static VistaMenúUSUARIO vistaMenuUsuario = new VistaMenúUSUARIO();
     public static VistaRegistro vistaRegistro = new VistaRegistro();
@@ -26,9 +31,7 @@ public class main {
     public static VistaPaisUSUARIO vistaPaisUsuario = new VistaPaisUSUARIO();
     public static VistaCiudadUSUARIO vistaCiudadUsuario = new VistaCiudadUSUARIO();
     public static VistaIdiomaUSUARIO vistaIdiomaUsuario = new VistaIdiomaUSUARIO();
-    public static ArrayList<Pais> listaPaises = new ArrayList<>();
-    public static ArrayList<Modelo.Ciudad> listaCiudades = new ArrayList<>();
-    public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+    
         public static void main(String[] args) {
         VistaLogin login = new VistaLogin();
         login.setVisible(true);

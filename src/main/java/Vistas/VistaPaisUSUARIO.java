@@ -5,6 +5,7 @@
 package Vistas;
 
 import com.mycompany.prueba2menu.main;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,16 +14,33 @@ import com.mycompany.prueba2menu.main;
 public class VistaPaisUSUARIO extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPaisUSUARIO.class.getName());
-
+    
     /**
      * Creates new form VistaPaisUSUARIO
      */
     public VistaPaisUSUARIO() {
         initComponents();
+        actualizarTabla();
         this.setLocationRelativeTo(null);
         this.dispose();
     }
+    private void actualizarTabla() {
+    DefaultTableModel modeloTabla = new DefaultTableModel();
+    modeloTabla.addColumn("Nombre");
+    modeloTabla.addColumn("Continente");
+    modeloTabla.addColumn("Población");
+    modeloTabla.addColumn("Codigo");
 
+    for (Modelo.Pais p : com.mycompany.prueba2menu.main.listaPaises) {
+        modeloTabla.addRow(new Object[]{
+                p.getNombre(),
+                p.getContinente(),
+                p.getPoblacion(),
+                p.getCodigo(),
+                });
+    }
+tblPais.setModel(modeloTabla); 
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +52,7 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
 
         btnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPais = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,7 +63,7 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPais.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -56,7 +74,7 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
                 "Nombre", "Continente", "Poblacion", "Código"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPais);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,20 +83,20 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnVolver)
-                .addContainerGap(724, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addContainerGap(118, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnVolver)
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -118,6 +136,6 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblPais;
     // End of variables declaration//GEN-END:variables
 }

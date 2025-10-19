@@ -277,9 +277,9 @@ public class VistaPaís extends javax.swing.JFrame {
         }
             
         Modelo.Pais nuevoPais = new Modelo.Pais(
-            txtNombre.getText().trim(),
-            txtContinente.getText().trim(),
-            poblacion, Codigo);
+                txtNombre.getText().trim(),
+                txtContinente.getText().trim(),
+                poblacion, Codigo);
         com.mycompany.prueba2menu.main.listaPaises.add(nuevoPais);
         
         actualizarTabla(); 

@@ -70,8 +70,8 @@ public class VistaIdioma extends javax.swing.JFrame {
         tblIdiomas = new javax.swing.JTable();
         chkOficial = new javax.swing.JCheckBox();
         btnCrear = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -104,9 +104,14 @@ public class VistaIdioma extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblIdiomas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblIdiomasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblIdiomas);
 
-        chkOficial.setText("Es oficial?");
+        chkOficial.setText("¿Es oficial?");
 
         btnCrear.setText("Crear");
         btnCrear.addActionListener(new java.awt.event.ActionListener() {
@@ -115,9 +120,9 @@ public class VistaIdioma extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
+        btnModificar.setText("Modificar");
 
-        jButton3.setText("jButton3");
+        btnEliminar.setText("Eliminar");
 
         jButton4.setText("jButton4");
 
@@ -154,15 +159,14 @@ public class VistaIdioma extends javax.swing.JFrame {
                                 .addGap(35, 35, 35))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
-                        .addComponent(btnCrear)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnCrear)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(82, 82, 82)
-                        .addComponent(jButton2)
+                        .addComponent(btnModificar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(btnEliminar)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4)))
                 .addGap(14, 14, 14))
@@ -188,8 +192,8 @@ public class VistaIdioma extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
+                    .addComponent(btnModificar)
+                    .addComponent(btnEliminar)
                     .addComponent(jButton4)
                     .addComponent(cmbPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -246,6 +250,19 @@ public class VistaIdioma extends javax.swing.JFrame {
     }        
     }//GEN-LAST:event_btnCrearActionPerformed
 
+    private void tblIdiomasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblIdiomasMouseClicked
+
+    int filaSeleccionada = tblIdiomas.getSelectedRow();   
+    if (filaSeleccionada != -1) {
+        Modelo.IdiomaPais idiomaSeleccionado = com.mycompany.prueba2menu.main.listaIdiomas.get(filaSeleccionada);
+        
+        txtIdioma.setText(idiomaSeleccionado.getIdioma());
+        txtPorcentaje.setText(String.valueOf(idiomaSeleccionado.getPorcentajeHablantes()));
+        chkOficial.setSelected(idiomaSeleccionado.isEsOficial());
+        cmbPais.setSelectedItem(idiomaSeleccionado.getPais());
+}
+    }//GEN-LAST:event_tblIdiomasMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -273,11 +290,11 @@ public class VistaIdioma extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JCheckBox chkOficial;
     private javax.swing.JComboBox<String> cmbPais;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

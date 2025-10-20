@@ -144,7 +144,7 @@ public class VistaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        String usuario = txtUsuario.getText();
+        String usuario = txtUsuario.getText().trim();
         String contraseña = new String(txtContraseña.getPassword()).trim();
     if (usuario.equals("admin") && contraseña.equals("123")) {
         this.setVisible(false);

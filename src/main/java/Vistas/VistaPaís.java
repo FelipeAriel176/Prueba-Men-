@@ -5,6 +5,7 @@
 package Vistas;
 
 import com.mycompany.prueba2menu.main;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -12,15 +13,16 @@ import javax.swing.table.DefaultTableModel;
  * @author arale
  */
 public class VistaPaís extends javax.swing.JFrame {
+    
     private int filaSeleccionada = -1;
+    
     private void actualizarTabla() {
+        
     DefaultTableModel modeloTabla = new DefaultTableModel();
     modeloTabla.addColumn("Nombre");
     modeloTabla.addColumn("Continente");
     modeloTabla.addColumn("Población");
     modeloTabla.addColumn("Codigo");
-
-    
     
     for (Modelo.Pais p : com.mycompany.prueba2menu.main.listaPaises) {
         modeloTabla.addRow(new Object[]{
@@ -32,6 +34,26 @@ public class VistaPaís extends javax.swing.JFrame {
         }
         tblPaises.setModel(modeloTabla);
         }
+    
+    private void actualizarTabla(ArrayList<Modelo.Pais> listaPaisesAMostrar) {
+    DefaultTableModel modeloTabla = new DefaultTableModel();
+    txtNombre.getText().trim();
+    modeloTabla.addColumn("Nombre");
+    modeloTabla.addColumn("Continente");
+    modeloTabla.addColumn("Población");
+    modeloTabla.addColumn("Código");
+    
+    for (Modelo.Pais p : listaPaisesAMostrar) {
+        modeloTabla.addRow(new Object[]{
+            p.getNombre(),
+            p.getContinente(),
+            p.getPoblacion(),
+            p.getCodigo(),
+        });
+    }
+    tblPaises.setModel(modeloTabla);
+}
+    
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPaís.class.getName());
     /**
@@ -67,6 +89,8 @@ public class VistaPaís extends javax.swing.JFrame {
         lblCodigo = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        txtConsulta = new javax.swing.JTextField();
+        txtFiltrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -156,39 +180,53 @@ public class VistaPaís extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Registro Poblacional Internacional");
 
+        txtConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtConsultaActionPerformed(evt);
+            }
+        });
+
+        txtFiltrar.setText("Filtrar");
+        txtFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFiltrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnVolver)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(34, 34, 34)
-                                            .addComponent(jLabel2)))
-                                    .addComponent(lblCodigo)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(txtContinente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtPoblacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel3)))
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(btnAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnVolver)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(34, 34, 34)
+                                    .addComponent(jLabel2)))
+                            .addComponent(lblCodigo)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(txtContinente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPoblacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(txtConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFiltrar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAgregar)))))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,9 +262,12 @@ public class VistaPaís extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCodigo))
-                .addGap(18, 18, 18)
-                .addComponent(btnAgregar)
-                .addGap(32, 32, 32))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(txtFiltrar)
+                    .addComponent(txtConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27))
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -364,6 +405,21 @@ public class VistaPaís extends javax.swing.JFrame {
         txtCodigo.setText(String.valueOf(paisSeleccionado.getCodigo()));
         }
     }//GEN-LAST:event_tblPaisesMouseClicked
+
+    private void txtFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltrarActionPerformed
+        String textoFiltrado = txtFiltrar.getText().trim().toLowerCase();
+        ArrayList<Modelo.Pais> resultados = new ArrayList<>();
+        for (Modelo.Pais p : com.mycompany.prueba2menu.main.listaPaises) {
+            if (p.getNombre().toLowerCase().contains(textoFiltrado)) {
+                resultados.add(p);
+            }
+        }
+        actualizarTabla(resultados);
+    }//GEN-LAST:event_txtFiltrarActionPerformed
+
+    private void txtConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConsultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtConsultaActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -404,7 +460,9 @@ public class VistaPaís extends javax.swing.JFrame {
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JTable tblPaises;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtConsulta;
     private javax.swing.JTextField txtContinente;
+    private javax.swing.JButton txtFiltrar;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPoblacion;
     // End of variables declaration//GEN-END:variables

@@ -5,7 +5,12 @@
 package Vistas;
 
 import com.mycompany.prueba2menu.main;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import Modelo.Pais;
 
 /**
  *
@@ -22,15 +27,46 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
         initComponents();
         actualizarTabla();
         this.setLocationRelativeTo(null);
-        this.dispose();
     }
+    
+    private void cargarFiltroContinentes() {
+    DefaultComboBoxModel modelo = new DefaultComboBoxModel(); 
+    modelo.addElement("Mostrar todo");
+    Set<String> continentesUnicos = new HashSet<>();
+    for (Modelo.Pais p : com.mycompany.prueba2menu.main.listaPaises) {
+        continentesUnicos.add(p.getContinente());
+        for (String continente : continentesUnicos) {
+        modelo.addElement(continente);
+    }
+    cmbContinente.setModel(modelo);
+    }
+}
+    
+    private void actualizarTabla(ArrayList<Modelo.Pais> listaPaisesAMostrar) {
+    DefaultTableModel modeloTabla = new DefaultTableModel();
+    modeloTabla.addColumn("Nombre");
+    modeloTabla.addColumn("Continente");
+    modeloTabla.addColumn("Población");
+    modeloTabla.addColumn("Código");
+    
+    for (Modelo.Pais p : listaPaisesAMostrar) {
+        modeloTabla.addRow(new Object[]{
+            p.getNombre(),
+            p.getContinente(),
+            p.getPoblacion(),
+            p.getCodigo(),
+            });
+    }
+        tblPais.setModel(modeloTabla);
+}
+    
     private void actualizarTabla() {
     DefaultTableModel modeloTabla = new DefaultTableModel();
     modeloTabla.addColumn("Nombre");
     modeloTabla.addColumn("Continente");
     modeloTabla.addColumn("Población");
     modeloTabla.addColumn("Codigo");
-
+    
     for (Modelo.Pais p : com.mycompany.prueba2menu.main.listaPaises) {
         modeloTabla.addRow(new Object[]{
                 p.getNombre(),
@@ -53,6 +89,7 @@ tblPais.setModel(modeloTabla);
         btnVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPais = new javax.swing.JTable();
+        cmbContinente = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,10 +108,17 @@ tblPais.setModel(modeloTabla);
                 {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Continente", "Poblacion", "Código"
+                "Nombre", "Continente", "Poblacion", "Codigo"
             }
         ));
         jScrollPane1.setViewportView(tblPais);
+
+        cmbContinente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbContinente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbContinenteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,9 +129,11 @@ tblPais.setModel(modeloTabla);
                 .addComponent(btnVolver)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(cmbContinente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,7 +141,9 @@ tblPais.setModel(modeloTabla);
                 .addContainerGap()
                 .addComponent(btnVolver)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbContinente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
 
@@ -107,6 +155,22 @@ tblPais.setModel(modeloTabla);
         main.vistaMenuUsuario.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void cmbContinenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbContinenteActionPerformed
+
+        String continenteSeleccionado = (String) cmbContinente.getSelectedItem();
+        if (continenteSeleccionado == null || continenteSeleccionado.contains("Mostrar Todos")) {
+        actualizarTabla(com.mycompany.prueba2menu.main.listaPaises);
+        return;
+    }
+        ArrayList<Modelo.Pais> resultadosFiltrados = new ArrayList<>();
+        for (Modelo.Pais p : com.mycompany.prueba2menu.main.listaPaises) {
+        if (p.getContinente().equalsIgnoreCase(continenteSeleccionado)) {
+            resultadosFiltrados.add(p);
+        }
+    }
+        actualizarTabla(resultadosFiltrados);
+    }//GEN-LAST:event_cmbContinenteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,6 +199,7 @@ tblPais.setModel(modeloTabla);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> cmbContinente;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPais;
     // End of variables declaration//GEN-END:variables

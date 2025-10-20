@@ -42,7 +42,7 @@
                           <Component id="txtNombreCiudad" alignment="1" min="-2" pref="94" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCrear" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -107,7 +107,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cmbPais" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAgregar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCrear" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -200,12 +200,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnAgregar">
+    <Component class="javax.swing.JButton" name="btnCrear">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Agregar"/>
+        <Property name="text" type="java.lang.String" value="Crear"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrearActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnNuevo">

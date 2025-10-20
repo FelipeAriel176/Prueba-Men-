@@ -70,7 +70,7 @@ public class VistaCiudades extends javax.swing.JFrame {
         txtPoblacion = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCiudades = new javax.swing.JTable();
-        btnAgregar = new javax.swing.JButton();
+        btnCrear = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -124,10 +124,10 @@ public class VistaCiudades extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblCiudades);
 
-        btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+        btnCrear.setText("Crear");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
+                btnCrearActionPerformed(evt);
             }
         });
 
@@ -179,7 +179,7 @@ public class VistaCiudades extends javax.swing.JFrame {
                             .addComponent(txtNombreCiudad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(8, 8, 8)
-                                .addComponent(btnAgregar)))
+                                .addComponent(btnCrear)))
                         .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -228,7 +228,7 @@ public class VistaCiudades extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregar))))
+                            .addComponent(btnCrear))))
                 .addGap(16, 16, 16))
         );
 
@@ -244,7 +244,7 @@ public class VistaCiudades extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPoblacionActionPerformed
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
     String nombre = txtNombreCiudad.getText().trim();
     String distrito = txtDistrito.getText().trim();
     String poblacionTexto = txtPoblacion.getText().trim();
@@ -283,7 +283,7 @@ public class VistaCiudades extends javax.swing.JFrame {
 }       catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "La población debe ser un número entero válido.", "Error", JOptionPane.ERROR_MESSAGE);
     }
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    }//GEN-LAST:event_btnCrearActionPerformed
 
     private void txtNombreCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreCiudadActionPerformed
         // TODO add your handling code here:
@@ -383,7 +383,7 @@ try {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;

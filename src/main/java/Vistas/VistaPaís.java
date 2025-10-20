@@ -35,7 +35,7 @@ public class VistaPaís extends javax.swing.JFrame {
         tblPaises.setModel(modeloTabla);
         }
     
-    private void actualizarTabla    (ArrayList<Modelo.Pais> listaPaisesAMostrar) {
+    private void actualizarTabla (ArrayList<Modelo.Pais> listaPaisesAMostrar) {
    
     DefaultTableModel modeloTabla = new DefaultTableModel();
     modeloTabla.addColumn("Nombre");
@@ -45,10 +45,10 @@ public class VistaPaís extends javax.swing.JFrame {
     
     for (Modelo.Pais p : listaPaisesAMostrar) {
         modeloTabla.addRow(new Object[]{
-            p.getNombre(),
-            p.getContinente(),
-            p.getPoblacion(),
-            p.getCodigo(),
+                p.getNombre(),
+                p.getContinente(),
+                p.getPoblacion(),
+                p.getCodigo(),
         });
     }
     tblPaises.setModel(modeloTabla);
@@ -293,7 +293,6 @@ public class VistaPaís extends javax.swing.JFrame {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
     this.setVisible(false); 
     main.vistaMenuAdmin.setVisible(true);
-    this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -312,9 +311,9 @@ public class VistaPaís extends javax.swing.JFrame {
                 int Codigo = Integer.parseInt(txtCodigo.getText().trim());
                 int poblacion = Integer.parseInt(txtPoblacion.getText().trim());
 
-            if (poblacion <= 0) {
-            JOptionPane.showMessageDialog(this, "La población debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+                if (poblacion <= 0) {
+                JOptionPane.showMessageDialog(this, "La población debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
         }
             
         Modelo.Pais nuevoPais = new Modelo.Pais(

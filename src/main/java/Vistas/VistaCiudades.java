@@ -33,6 +33,15 @@ public class VistaCiudades extends javax.swing.JFrame {
         tblCiudades.setModel(modeloTabla);
 }
     
+    private void NuevoCampo() {
+    txtNombreCiudad.setText("");
+    txtDistrito.setText("");
+    txtPoblacion.setText("");
+    cmbPais.setSelectedIndex(0); 
+    filaSeleccionada = -1;
+    tblCiudades.clearSelection();
+}
+    
     private void cargarPaises() {
     
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();    
@@ -62,9 +71,9 @@ public class VistaCiudades extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCiudades = new javax.swing.JTable();
         btnAgregar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         lblNombre = new javax.swing.JLabel();
         lblDistrito = new javax.swing.JLabel();
         lblPoblacion = new javax.swing.JLabel();
@@ -108,6 +117,11 @@ public class VistaCiudades extends javax.swing.JFrame {
                 "Nombre", "Distrito", "Poblacion"
             }
         ));
+        tblCiudades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCiudadesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCiudades);
 
         btnAgregar.setText("Agregar");
@@ -117,11 +131,26 @@ public class VistaCiudades extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("jButton3");
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("jButton4");
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         lblNombre.setText("Nombre");
 
@@ -159,11 +188,11 @@ public class VistaCiudades extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(53, 53, 53)
-                        .addComponent(jButton2)
+                        .addComponent(btnNuevo)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(btnModificar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4))
+                        .addComponent(btnEliminar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15))
         );
@@ -178,9 +207,9 @@ public class VistaCiudades extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(24, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4))
+                            .addComponent(btnNuevo)
+                            .addComponent(btnModificar)
+                            .addComponent(btnEliminar))
                         .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,13 +250,15 @@ public class VistaCiudades extends javax.swing.JFrame {
     String poblacionTexto = txtPoblacion.getText().trim();
     Object itemSeleccionado = cmbPais.getSelectedItem();
     
+        Modelo.Pais paisSeleccionado = null;
+    
      if (nombre.isEmpty() || distrito.isEmpty() || poblacionTexto.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Debe completar todos los campos de texto.", "Error de Campos", JOptionPane.ERROR_MESSAGE);
-        return; 
+        JOptionPane.showMessageDialog(this, "Complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
     }
     
-  if (itemSeleccionado == null || itemSeleccionado.toString().contains("Seleccione un pais")) {
-        JOptionPane.showMessageDialog(this, "Debe seleccionar un País de la lista.", "Error de Relación", JOptionPane.ERROR_MESSAGE);
+  if (itemSeleccionado == null || itemSeleccionado.toString().contains("Seleccione un país")) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar un país.", "Error", JOptionPane.ERROR_MESSAGE);
         return; 
     }
   
@@ -235,22 +266,21 @@ public class VistaCiudades extends javax.swing.JFrame {
        int poblacion = Integer.parseInt(poblacionTexto);
 
         if (poblacion <= 0) {
-            JOptionPane.showMessageDialog(this, "La Población debe ser un número mayor que cero.", "Error de Rango", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La población debe ser un número mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
-        itemSeleccionado = (Modelo.Pais) itemSeleccionado;   
-        Modelo.Pais paisSeleccionado = (Modelo.Pais) itemSeleccionado;
         Modelo.Ciudad nuevaCiudad = new Modelo.Ciudad(
                 nombre,
                 distrito,
                 poblacion,
-                paisSeleccionado);
-                com.mycompany.prueba2menu.main.listaCiudades.add(nuevaCiudad);
+                paisSeleccionado 
+        );
+        com.mycompany.prueba2menu.main.listaCiudades.add(nuevaCiudad);
         actualizarTabla();
-        JOptionPane.showMessageDialog(this, "Ciudad agregada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    } 
-        catch (NumberFormatException e) {
+        NuevoCampo();
+        JOptionPane.showMessageDialog(this, "Ciudad agregada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);       
+}       catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "La población debe ser un número entero válido.", "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -262,6 +292,70 @@ public class VistaCiudades extends javax.swing.JFrame {
     private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbPaisActionPerformed
+
+    private void tblCiudadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCiudadesMouseClicked
+    filaSeleccionada = tblCiudades.getSelectedRow();
+    
+    if (filaSeleccionada != -1) {
+        Modelo.Ciudad ciudadSeleccionada = com.mycompany.prueba2menu.main.listaCiudades.get(filaSeleccionada);
+        txtNombreCiudad.setText(ciudadSeleccionada.getNombre());
+        txtDistrito.setText(ciudadSeleccionada.getDistrito());
+        txtPoblacion.setText(String.valueOf(ciudadSeleccionada.getPoblacion()));
+        cmbPais.setSelectedItem(ciudadSeleccionada.getPais());
+}
+    }//GEN-LAST:event_tblCiudadesMouseClicked
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+
+if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(this, "Selecciona una ciudad", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+try {
+        Modelo.Ciudad ciudadEditar = com.mycompany.prueba2menu.main.listaCiudades.get(filaSeleccionada);
+        
+        int nuevaPoblacion = Integer.parseInt(txtPoblacion.getText().trim());
+        Modelo.Pais nuevoPais = (Modelo.Pais) cmbPais.getSelectedItem();
+        
+        if (nuevaPoblacion <= 0) {
+            JOptionPane.showMessageDialog(this, "La población debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        ciudadEditar.setNombre(txtNombreCiudad.getText().trim());
+        ciudadEditar.setDistrito(txtDistrito.getText().trim());
+        ciudadEditar.setPoblacion(nuevaPoblacion);
+        ciudadEditar.setPais(nuevoPais);
+        
+        actualizarTabla();
+        NuevoCampo();
+        JOptionPane.showMessageDialog(this, "Ciudad modificada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "La población debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+    }        
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+
+        if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(this, "Seleccione una ciudad.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro?", "Confirmar", JOptionPane.YES_NO_OPTION);
+    if (confirmacion == JOptionPane.YES_OPTION) {
+        com.mycompany.prueba2menu.main.listaCiudades.remove(filaSeleccionada);
+        actualizarTabla();
+        NuevoCampo();
+        JOptionPane.showMessageDialog(this, "Ciudad eliminada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+    NuevoCampo();
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,11 +384,11 @@ public class VistaCiudades extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cmbPais;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDistrito;
     private javax.swing.JLabel lblNombre;

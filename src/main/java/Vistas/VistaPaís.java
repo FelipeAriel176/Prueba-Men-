@@ -35,9 +35,9 @@ public class VistaPaís extends javax.swing.JFrame {
         tblPaises.setModel(modeloTabla);
         }
     
-    private void actualizarTabla(ArrayList<Modelo.Pais> listaPaisesAMostrar) {
+    private void actualizarTabla    (ArrayList<Modelo.Pais> listaPaisesAMostrar) {
+   
     DefaultTableModel modeloTabla = new DefaultTableModel();
-    txtNombre.getText().trim();
     modeloTabla.addColumn("Nombre");
     modeloTabla.addColumn("Continente");
     modeloTabla.addColumn("Población");
@@ -407,13 +407,15 @@ public class VistaPaís extends javax.swing.JFrame {
     }//GEN-LAST:event_tblPaisesMouseClicked
 
     private void txtFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltrarActionPerformed
-        String textoFiltrado = txtFiltrar.getText().trim().toLowerCase();
+        String textoBuscado = txtConsulta.getText().trim().toLowerCase();
         ArrayList<Modelo.Pais> resultados = new ArrayList<>();
         for (Modelo.Pais p : com.mycompany.prueba2menu.main.listaPaises) {
-            if (p.getNombre().toLowerCase().contains(textoFiltrado)) {
+                String nombrePaisLimpio = p.getNombre().trim().toLowerCase();
+        
+        if (nombrePaisLimpio.contains(textoBuscado)) { 
                 resultados.add(p);
-            }
         }
+}
         actualizarTabla(resultados);
     }//GEN-LAST:event_txtFiltrarActionPerformed
 

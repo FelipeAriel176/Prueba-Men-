@@ -82,8 +82,8 @@ public class VistaPaís extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblContinente = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         lblCodigo = new javax.swing.JLabel();
@@ -159,9 +159,9 @@ public class VistaPaís extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Nombre");
+        lblNombre.setText("Nombre");
 
-        jLabel2.setText("Continente");
+        lblContinente.setText("Continente");
 
         jLabel4.setText("Población");
 
@@ -206,10 +206,10 @@ public class VistaPaís extends javax.swing.JFrame {
                                 .addComponent(btnVolver)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(34, 34, 34)
-                                    .addComponent(jLabel2)))
+                                    .addComponent(lblContinente)))
                             .addComponent(lblCodigo)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel1))
+                            .addComponent(lblNombre))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
@@ -249,11 +249,11 @@ public class VistaPaís extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(lblNombre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtContinente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(lblContinente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPoblacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,14 +301,15 @@ public class VistaPaís extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         String nombre = txtNombre.getText().trim();
-        String continente = txtContinente.getText().trim(); 
-        
+        String continente = txtContinente.getText().trim();
+
         if (nombre.isEmpty()) {
         JOptionPane.showMessageDialog(this, "El nombre es obligatorio.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
+        
         try {
-                int Codigo = Integer.parseInt(txtCodigo.getText().trim());
+                int codigo = Integer.parseInt(txtCodigo.getText().trim());
                 int poblacion = Integer.parseInt(txtPoblacion.getText().trim());
 
                 if (poblacion <= 0) {
@@ -317,9 +318,11 @@ public class VistaPaís extends javax.swing.JFrame {
         }
             
         Modelo.Pais nuevoPais = new Modelo.Pais(
-                txtNombre.getText().trim(),
-                txtContinente.getText().trim(),
-                poblacion, Codigo);
+                nombre,
+                continente,
+                poblacion, 
+                codigo);
+        
         com.mycompany.prueba2menu.main.listaPaises.add(nuevoPais);
         
         actualizarTabla(); 
@@ -338,8 +341,8 @@ public class VistaPaís extends javax.swing.JFrame {
     }
     int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
     if (confirmacion == JOptionPane.YES_OPTION) {
-    com.mycompany.prueba2menu.main.listaPaises.remove(filaSeleccionada);
-    actualizarTabla();
+        com.mycompany.prueba2menu.main.listaPaises.remove(filaSeleccionada);
+        actualizarTabla();
         NuevoCampo();
         JOptionPane.showMessageDialog(this, "País eliminado con éxito", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -452,13 +455,13 @@ public class VistaPaís extends javax.swing.JFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCodigo;
+    private javax.swing.JLabel lblContinente;
+    private javax.swing.JLabel lblNombre;
     private javax.swing.JTable tblPaises;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtConsulta;

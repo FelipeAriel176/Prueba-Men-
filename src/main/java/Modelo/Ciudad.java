@@ -18,6 +18,7 @@ public class Ciudad {
 
     public Ciudad() {
     }
+    private static final System.Logger LOG = System.getLogger(Ciudad.class.getName());
 
     public Ciudad(String nombre, String distrito, int poblacion, Pais pais) {
         this.nombre = nombre;

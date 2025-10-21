@@ -9,21 +9,22 @@ package Modelo;
  * @author FELIP
  */
 public class Pais {
-    int codigo;
     String nombre;
     String continente;
     int poblacion;
-    public Pais() {   
+    int codigo;
+
+    public Pais() {
     }
 
-    public Pais(String nombre, String continente, int poblacion, int codigo) {
+    public Pais(int codigo, String nombre, String continente, int poblacion) {
+        this.codigo = codigo;
         this.nombre = nombre;
         this.continente = continente;
         this.poblacion = poblacion;
-        this.codigo = codigo;
     }
 
-    public double getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
@@ -47,15 +48,21 @@ public class Pais {
         this.continente = continente;
     }
 
-    public double getPoblacion() {
+    public int getPoblacion() {
         return poblacion;
     }
 
     public void setPoblacion(int poblacion) {
         this.poblacion = poblacion;
     }
+
     @Override
     public String toString() {
-        return "Pais{" + "nombre=" + nombre + ", continente=" + continente + ", poblacion=" + poblacion + ", codigo=" + codigo + '}';
+        return "Pais{" + "codigo=" + codigo + ", nombre=" + nombre + ", continente=" + continente + ", poblacion=" + poblacion + '}';
     }
- }
+    private static final System.Logger LOG = System.getLogger(Pais.class.getName());
+
+  
+}
+ 
+    

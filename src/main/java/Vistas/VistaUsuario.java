@@ -5,6 +5,9 @@
 package Vistas;
 
 import com.mycompany.prueba2menu.main;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import Modelo.Usuario;
 
 /**
  *
@@ -17,9 +20,33 @@ public class VistaUsuario extends javax.swing.JFrame {
     /**
      * Creates new form VistaUsuario
      */
+    private int filaSeleccionada = -1;
+    
     public VistaUsuario() {
         initComponents();
+        actualizarTabla();
         this.setLocationRelativeTo(null);
+    }
+    
+    private void actualizarTabla() {
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("Usuario");
+        modeloTabla.addColumn("Contraseña");
+        
+        for (Modelo.Usuario u : com.mycompany.prueba2menu.main.listaUsuarios) {
+            modeloTabla.addRow(new Object[]{
+                u.getNombreUsuario(),
+                u.getContraseña()
+                    });
+        }
+        tblUsuarios.setModel(modeloTabla);
+    }
+    
+    private void NuevoCampo() {
+        txtUsuario.setText("");
+        txtContraseña.setText("");
+        filaSeleccionada = -1;
+        tblUsuarios.clearSelection();
     }
 
     /**
@@ -32,7 +59,16 @@ public class VistaUsuario extends javax.swing.JFrame {
     private void initComponents() {
 
         btnVolver = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblUsuarios = new javax.swing.JTable();
+        lblUsuario = new javax.swing.JLabel();
+        txtUsuario = new javax.swing.JTextField();
+        txtContraseña = new javax.swing.JPasswordField();
+        lblContraseña = new javax.swing.JLabel();
+        btnNuevo = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        BtnEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,30 +79,105 @@ public class VistaUsuario extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("administrar usuario");
+        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUsuariosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblUsuarios);
+
+        lblUsuario.setText("Usuario");
+
+        lblContraseña.setText("Contraseña");
+
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        BtnEliminar.setText("Eliminar");
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnVolver)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(lblContraseña)
+                    .addComponent(lblUsuario)
+                    .addComponent(txtContraseña))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnVolver))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jLabel1)))
-                .addContainerGap(143, Short.MAX_VALUE))
+                        .addComponent(btnNuevo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAgregar)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnModificar)
+                        .addGap(58, 58, 58)
+                        .addComponent(BtnEliminar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnVolver)
-                .addGap(99, 99, 99)
-                .addComponent(jLabel1)
-                .addGap(0, 156, Short.MAX_VALUE))
+                .addGap(82, 82, 82)
+                .addComponent(lblUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(lblContraseña)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNuevo)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnModificar)
+                    .addComponent(BtnEliminar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -75,8 +186,90 @@ public class VistaUsuario extends javax.swing.JFrame {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
     this.setVisible(false);
     main.vistaMenuAdmin.setVisible(true);
-    this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void tblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuariosMouseClicked
+filaSeleccionada = tblUsuarios.getSelectedRow();
+    
+    if (filaSeleccionada != -1) {
+        Modelo.Usuario usuarioSeleccionado = com.mycompany.prueba2menu.main.listaUsuarios.get(filaSeleccionada);
+        txtUsuario.setText(usuarioSeleccionado.getNombreUsuario());
+        txtContraseña.setText(usuarioSeleccionado.getContraseña());
+    }    }//GEN-LAST:event_tblUsuariosMouseClicked
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+    NuevoCampo();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+    String nombre = txtUsuario.getText().trim();
+    String pass = new String(txtContraseña.getPassword()).trim(); // Si es JPasswordField
+
+    if (nombre.isEmpty() || pass.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Complete ambos campos (Usuario y Contraseña).", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    for (Modelo.Usuario u : main.listaUsuarios) {
+        if (u.getNombreUsuario().equalsIgnoreCase(nombre)) {
+            JOptionPane.showMessageDialog(this, "El nombre de usuario ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }
+    Modelo.Usuario nuevoUsuario = new Modelo.Usuario(nombre, pass);
+    main.listaUsuarios.add(nuevoUsuario);
+    
+    actualizarTabla();
+    NuevoCampo();
+    JOptionPane.showMessageDialog(this, "Usuario agregado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(this, "Seleccione un usuario para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    String nombre = txtUsuario.getText().trim();
+    String pass = new String(txtContraseña.getPassword()).trim();
+
+    if (nombre.isEmpty() || pass.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Campo/s vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    Modelo.Usuario usuarioAEditar = main.listaUsuarios.get(filaSeleccionada);
+
+    for (int i = 0; i < main.listaUsuarios.size(); i++) {
+        if (i != filaSeleccionada && main.listaUsuarios.get(i).getNombreUsuario().equalsIgnoreCase(nombre)) {
+            JOptionPane.showMessageDialog(this, "El nombre de usuario ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }
+    
+    usuarioAEditar.setNombreUsuario(nombre);
+    usuarioAEditar.setContraseña(pass);
+    
+    actualizarTabla();
+    NuevoCampo();
+    JOptionPane.showMessageDialog(this, "Usuario modificado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(this, "Seleccione un usuario para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar el usuario seleccionado?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+    
+    if (confirmacion == JOptionPane.YES_OPTION) {
+        main.listaUsuarios.remove(filaSeleccionada);
+        actualizarTabla();
+        NuevoCampo();
+        JOptionPane.showMessageDialog(this, "Usuario eliminado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }
+    }//GEN-LAST:event_BtnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,7 +297,16 @@ public class VistaUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnEliminar;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblContraseña;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JTable tblUsuarios;
+    private javax.swing.JPasswordField txtContraseña;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

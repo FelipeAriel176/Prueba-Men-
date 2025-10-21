@@ -16,6 +16,7 @@ public class IdiomaPais {
 
     public IdiomaPais() {
     }
+    private static final System.Logger LOG = System.getLogger(IdiomaPais.class.getName());
 
     public IdiomaPais(String idioma, boolean esOficial, double porcentajeHablantes, Pais pais) {
         this.idioma = idioma;

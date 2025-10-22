@@ -4,8 +4,6 @@
  */
 package Vistas;
 
-import static com.mycompany.prueba2menu.main.vistaLogin;
-
 /**
  *
  * @author Santo Tomas
@@ -60,8 +58,9 @@ public class VistaNosotros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+    VistaLogin login = new VistaLogin();
     this.setVisible(false);
-    vistaLogin.setVisible(true);
+    login.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     /**

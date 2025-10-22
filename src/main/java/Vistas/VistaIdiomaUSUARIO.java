@@ -63,8 +63,9 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+    VistaMenúUSUARIO vistaMenuU = new VistaMenúUSUARIO();
     this.setVisible(false);
-    main.vistaMenuUsuario.setVisible(true);
+    vistaMenuU.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     /**

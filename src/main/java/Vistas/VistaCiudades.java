@@ -236,8 +236,9 @@ public class VistaCiudades extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        this.setVisible(false);
-        main.vistaMenuAdmin.setVisible(true);
+    VistaMenúADMIN MenuA = new VistaMenúADMIN();
+    this.setVisible(false);
+    MenuA.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void txtPoblacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPoblacionActionPerformed

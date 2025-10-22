@@ -117,23 +117,27 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+    VistaLogin login = new VistaLogin();
     this.setVisible(false);
-    main.vistaLogin.setVisible(true);
+    login.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCiudadesActionPerformed
-        this.setVisible(false);
-        main.vistaCiudadUsuario.setVisible(true);
+    VistaCiudadUSUARIO ciudadU = new VistaCiudadUSUARIO();
+    this.setVisible(false);
+    ciudadU.setVisible(true);
     }//GEN-LAST:event_btnCiudadesActionPerformed
 
     private void btnPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaisesActionPerformed
-        this.setVisible(false);
-        main.vistaPaisUsuario.setVisible(true);
+    VistaPaisUSUARIO paisU = new VistaPaisUSUARIO();
+    this.setVisible(false);
+    paisU.setVisible(true);
     }//GEN-LAST:event_btnPaisesActionPerformed
 
     private void btnIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIdiomaActionPerformed
-        this.setVisible(false);
-        main.vistaIdiomaUsuario.setVisible(true);
+    VistaIdiomaUSUARIO idiomaU = new VistaIdiomaUSUARIO();
+    this.setVisible(false);
+    idiomaU.setVisible(true);
     }//GEN-LAST:event_btnIdiomaActionPerformed
 
     /**

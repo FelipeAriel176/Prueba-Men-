@@ -242,8 +242,9 @@ public class VistaMenúADMIN extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIdiomaActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        this.setVisible(false);
-        main.vistaLogin.setVisible(true);
+    VistaLogin login = new VistaLogin();
+    this.setVisible(false);
+    login.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     /**

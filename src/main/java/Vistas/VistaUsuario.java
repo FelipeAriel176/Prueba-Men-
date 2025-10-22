@@ -184,8 +184,9 @@ public class VistaUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+   VistaMenúADMIN MenuA = new VistaMenúADMIN();
     this.setVisible(false);
-    main.vistaMenuAdmin.setVisible(true);
+    MenuA.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void tblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuariosMouseClicked

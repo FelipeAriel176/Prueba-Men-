@@ -291,8 +291,9 @@ public class VistaPaís extends javax.swing.JFrame {
         tblPaises.clearSelection();
          }
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-    this.setVisible(false); 
-    main.vistaMenuAdmin.setVisible(true);
+    VistaMenúADMIN MenuA = new VistaMenúADMIN();
+    this.setVisible(false);
+    MenuA.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -309,7 +310,7 @@ public class VistaPaís extends javax.swing.JFrame {
     }
         
         try {
-                int codigo = Integer.parseInt(txtCodigo.getText().trim());
+            int codigo = Integer.parseInt(txtCodigo.getText().trim());
                 int poblacion = Integer.parseInt(txtPoblacion.getText().trim());
 
                 if (poblacion <= 0) {
@@ -318,10 +319,10 @@ public class VistaPaís extends javax.swing.JFrame {
         }
             
         Modelo.Pais nuevoPais = new Modelo.Pais(
+                codigo,
                 nombre,
                 continente,
-                poblacion, 
-                codigo);
+                poblacion);
         
         com.mycompany.prueba2menu.main.listaPaises.add(nuevoPais);
         

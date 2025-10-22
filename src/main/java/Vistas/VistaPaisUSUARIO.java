@@ -4,11 +4,9 @@
  */
 package Vistas;
 
-import com.mycompany.prueba2menu.main;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
-import Modelo.Pais;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -158,8 +156,9 @@ tblPais.setModel(modeloTabla);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        this.setVisible(false);
-        main.vistaMenuUsuario.setVisible(true);
+    VistaMenúUSUARIO vistaMenuU = new VistaMenúUSUARIO();
+    this.setVisible(false);
+    vistaMenuU.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed

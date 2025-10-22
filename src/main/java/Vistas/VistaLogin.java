@@ -160,9 +160,10 @@ for (Modelo.Usuario user : com.mycompany.prueba2menu.main.listaUsuarios) {
         }
 } 
     if (encontrado) {
+    VistaMenúUSUARIO vistaMenuU = new VistaMenúUSUARIO();
     this.setVisible(false);
-    com.mycompany.prueba2menu.main.vistaMenuUsuario.setVisible(true);
-}   else {
+    vistaMenuU.setVisible(true);
+    }   else {
     JOptionPane.showMessageDialog(this, "Usuario o contraseña no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }

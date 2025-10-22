@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  */
 public class VistaRegistro extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaRegistro.class.getName());
-
+    
     /**
      * Creates new form VistaRegistro
      */
@@ -54,7 +54,7 @@ public class VistaRegistro extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
@@ -68,7 +68,7 @@ public class VistaRegistro extends javax.swing.JFrame {
                         .addGap(113, 113, 113)
                         .addComponent(lblContraseña))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
+                        .addGap(137, 137, 137)
                         .addComponent(btnRegistrarse)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -79,13 +79,13 @@ public class VistaRegistro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsuario)
                     .addComponent(lblContraseña))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
                 .addComponent(btnRegistrarse)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,14 +95,14 @@ public class VistaRegistro extends javax.swing.JFrame {
     String nombre = txtUsuario.getText(); 
     String pass = txtContraseña.getText(); 
 if (nombre.isEmpty() || pass.isEmpty()) {
-    return; 
+    JOptionPane.showMessageDialog(this, "El nombre/contraseña está vacío", "Error", JOptionPane.ERROR_MESSAGE);
 }
 else{
   Usuario usuario = new Usuario(nombre, pass);
+    VistaLogin login = new VistaLogin();
     main.listaUsuarios.add(usuario);
     JOptionPane.showMessageDialog(this, "Usuario registrado con éxito", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-    main.vistaRegistro.setVisible(false);
-    main.vistaLogin.setVisible(true); 
+    login.setVisible(true);
 this.dispose();    }//GEN-LAST:event_btnRegistrarseActionPerformed
 }
     /**

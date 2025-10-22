@@ -11,7 +11,6 @@ package Modelo;
 public class Usuario {
         private String nombreUsuario;
         private String contraseña;
-    
         private static final System.Logger LOG = System.getLogger(Usuario.class.getName());
 
 public Usuario(String nombreUsuario, String contraseña) {

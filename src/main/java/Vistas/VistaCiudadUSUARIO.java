@@ -48,23 +48,23 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnVolver)
-                .addContainerGap(322, Short.MAX_VALUE))
+                .addContainerGap(341, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnVolver)
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addContainerGap(276, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        this.setVisible(false);
-        main.vistaMenuUsuario.setVisible(true);
-        this.dispose();
+    VistaMenúUSUARIO vistaMenuU = new VistaMenúUSUARIO();
+    this.setVisible(false);
+    vistaMenuU.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     /**

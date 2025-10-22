@@ -8,12 +8,6 @@ import Modelo.Pais;
 import Modelo.Usuario;
 import Vistas.VistaLogin;
 import java.util.ArrayList;
-import Vistas.VistaMenúADMIN;
-import Vistas.VistaMenúUSUARIO;
-import Vistas.VistaRegistro;
-import Vistas.VistaPaisUSUARIO;
-import Vistas.VistaIdiomaUSUARIO;
-import Vistas.VistaCiudadUSUARIO;
 /**
  *
  * @author FELIP

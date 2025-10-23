@@ -4,8 +4,6 @@
  */
 package Vistas;
 
-import com.mycompany.prueba2menu.main;
-
 /**
  *
  * @author arale
@@ -16,7 +14,7 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
     /**
      * Creates new form VistaMenúUSUARIO
      */
-    public VistaMenúUSUARIO() {
+        public VistaMenúUSUARIO() {
         initComponents();
         this.setLocationRelativeTo(null);
     }

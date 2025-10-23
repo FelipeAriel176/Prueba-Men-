@@ -99,12 +99,12 @@ public class VistaLogin extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addGap(131, 131, 131)
                             .addComponent(jLabel1)))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRegistrarse)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(61, 61, 61)
                         .addComponent(btnEntrar)
-                        .addGap(14, 14, 14)))
+                        .addGap(24, 24, 24)))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -140,7 +140,6 @@ public class VistaLogin extends javax.swing.JFrame {
         listaUsuarios.add(usuario);
         VistaRegistro registro = new VistaRegistro();
         registro.setVisible(true);
-        dispose();
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed

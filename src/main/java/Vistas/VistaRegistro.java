@@ -19,7 +19,6 @@ public class VistaRegistro extends javax.swing.JFrame {
     public VistaRegistro() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.dispose();
     }
 
     /**
@@ -69,7 +68,7 @@ public class VistaRegistro extends javax.swing.JFrame {
                         .addComponent(lblContraseña))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(137, 137, 137)
-                        .addComponent(btnRegistrarse)))
+                        .addComponent(btnRegistrarse, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

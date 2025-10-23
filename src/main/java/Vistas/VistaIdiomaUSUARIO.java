@@ -4,8 +4,10 @@
  */
 package Vistas;
 
-import com.mycompany.prueba2menu.main;
-
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import Modelo.Pais; 
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author FELIP
@@ -19,6 +21,8 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
      */
     public VistaIdiomaUSUARIO() {
         initComponents();
+        cargarPaises(); 
+        actualizarTabla();
         this.setLocationRelativeTo(null);
     }
 
@@ -32,6 +36,10 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
     private void initComponents() {
 
         btnVolver = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblIdioma = new javax.swing.JTable();
+        cmbIdioma = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,31 +50,121 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
             }
         });
 
+        tblIdioma.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Idioma", "Pais", "Porcentaje hablantes", "Oficial"
+            }
+        ));
+        jScrollPane1.setViewportView(tblIdioma);
+
+        cmbIdioma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbIdioma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbIdiomaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
+        jLabel1.setText("Idiomas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnVolver)
-                .addContainerGap(322, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cmbIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnVolver)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(182, 182, 182))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnVolver)
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnVolver))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel1)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void actualizarTabla(ArrayList<Modelo.IdiomaPais> listaIdiomasAMostrar) {
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("Idioma");
+        modeloTabla.addColumn("Oficial");
+        modeloTabla.addColumn("Porcentaje Hablantes");
+        modeloTabla.addColumn("País");
+        
+        for (Modelo.IdiomaPais i : listaIdiomasAMostrar) {
+            modeloTabla.addRow(new Object[]{
+                i.getIdioma(),
+                i.isEsOficial() ? "Si" : "No", 
+                i.getPorcentajeHablantes(),
+                i.getPais().getNombre()
+    });
+        }
+        tblIdioma.setModel(modeloTabla);
+    }
+    
+    private void actualizarTabla() {
+        actualizarTabla(com.mycompany.prueba2menu.main.listaIdiomas);
+    }
+    
+    private void cargarPaises() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();    
+        modelo.addElement("Mostrar todo");    
+    
+        for (Pais p : com.mycompany.prueba2menu.main.listaPaises) {
+                modelo.addElement(p.getNombre());
+            }
+        cmbIdioma.setModel(modelo);
+    }
+            
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
     VistaMenúUSUARIO vistaMenuU = new VistaMenúUSUARIO();
     this.setVisible(false);
     vistaMenuU.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void cmbIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbIdiomaActionPerformed
+    String nombreSeleccionado = (String) cmbIdioma.getSelectedItem();
+
+    if (nombreSeleccionado == null || nombreSeleccionado.equals("Mostrar todo")) {
+                actualizarTabla(com.mycompany.prueba2menu.main.listaIdiomas);
+                return;
+        }
+    
+        ArrayList<Modelo.IdiomaPais> filtro = new ArrayList<>();
+        for (Modelo.IdiomaPais i : com.mycompany.prueba2menu.main.listaIdiomas) {
+                if (i.getPais().getNombre().equals(nombreSeleccionado)) {
+                filtro.add(i);
+                }
+        }
+        actualizarTabla(filtro);
+    }//GEN-LAST:event_cmbIdiomaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -95,5 +193,9 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> cmbIdioma;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblIdioma;
     // End of variables declaration//GEN-END:variables
 }

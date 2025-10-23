@@ -4,8 +4,10 @@
  */
 package Vistas;
 
-import com.mycompany.prueba2menu.main;
-
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import Modelo.Pais;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author FELIP
@@ -19,6 +21,8 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
      */
     public VistaCiudadUSUARIO() {
         initComponents();
+        cargarPaises(); 
+        actualizarTabla();
         this.setLocationRelativeTo(null);
     }
     /**
@@ -31,6 +35,10 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
     private void initComponents() {
 
         btnVolver = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCiudades = new javax.swing.JTable();
+        cmbPais = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,31 +49,122 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
             }
         });
 
+        tblCiudades.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Distrito", "Poblacion", "Pais"
+            }
+        ));
+        jScrollPane1.setViewportView(tblCiudades);
+
+        cmbPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPaisActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
+        jLabel1.setText("Ciudades");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnVolver)
-                .addContainerGap(341, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cmbPais, 0, 96, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnVolver)
+                        .addGap(192, 192, 192)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnVolver)
-                .addContainerGap(276, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnVolver)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(19, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void actualizarTabla(ArrayList<Modelo.Ciudad> listaCiudadesAMostrar) {
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Distrito");
+        modeloTabla.addColumn("Población");
+        modeloTabla.addColumn("País");
+        
+        for (Modelo.Ciudad c : listaCiudadesAMostrar) {
+            modeloTabla.addRow(new Object[]{
+                c.getNombre(),
+                c.getDistrito(),
+                c.getPoblacion(),
+                c.getPais().getNombre()
+                    });
+        }
+        tblCiudades.setModel(modeloTabla); 
+    }
+    
+    private void actualizarTabla() {
+        actualizarTabla(com.mycompany.prueba2menu.main.listaCiudades);
+    }
+    
+    private void cargarPaises() {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();    
+        modelo.addElement("Mostrar todo");    
+    
+        for (Pais p : com.mycompany.prueba2menu.main.listaPaises) {
+            modelo.addElement(p.getNombre()); 
+        }
+        cmbPais.setModel(modelo);
+    }
+    
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
     VistaMenúUSUARIO vistaMenuU = new VistaMenúUSUARIO();
     this.setVisible(false);
     vistaMenuU.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed
+    String nombreSeleccionado = (String) cmbPais.getSelectedItem();
+
+    if (nombreSeleccionado == null || nombreSeleccionado.equals("Mostrar todo")) {
+                actualizarTabla(com.mycompany.prueba2menu.main.listaCiudades);
+                return;
+        }
+    
+        ArrayList<Modelo.Ciudad> filtro = new ArrayList<>();
+        for (Modelo.Ciudad c : com.mycompany.prueba2menu.main.listaCiudades) {
+        if (c.getPais().getNombre().equals(nombreSeleccionado)) {
+                filtro.add(c);
+            }
+        }
+        actualizarTabla(filtro);
+    }//GEN-LAST:event_cmbPaisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -93,5 +192,9 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> cmbPais;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblCiudades;
     // End of variables declaration//GEN-END:variables
 }

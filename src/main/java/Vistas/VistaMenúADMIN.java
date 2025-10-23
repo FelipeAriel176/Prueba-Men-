@@ -4,8 +4,6 @@
  */
 package Vistas;
 
-import com.mycompany.prueba2menu.main;
-
 /**
  *
  * @author FELIP
@@ -17,7 +15,7 @@ public class VistaMenúADMIN extends javax.swing.JFrame {
     /**
      * Creates new form InterfazPrincipal
      */
-    public VistaMenúADMIN() {
+        public VistaMenúADMIN() {
         initComponents();
         this.setLocationRelativeTo(null);
     }

@@ -4,7 +4,6 @@
  */
 package Vistas;
 
-import com.mycompany.prueba2menu.main;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

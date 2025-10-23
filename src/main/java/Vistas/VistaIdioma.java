@@ -4,9 +4,7 @@
  */
 package Vistas;
 
-import com.mycompany.prueba2menu.main;
 import javax.swing.DefaultComboBoxModel;
-import Modelo.Pais;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 

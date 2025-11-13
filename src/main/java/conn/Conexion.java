@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class Conexion {
 
-    private static final String NAME_DB  = "datos_menu";
+    private static final String NAME_DB  = "mundo";
     private static final String USER     = "root";
     private static final String PASSWORD = "root";
     private static final String HOST     = "localhost";

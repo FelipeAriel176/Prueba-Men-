@@ -10,4 +10,12 @@
         <maven.compiler.release>21</maven.compiler.release>
         <exec.mainClass>com.mycompany.prueba2menu.Prueba2Menu</exec.mainClass>
     </properties>
+         <dependencies>
+        <!-- Conector JDBC para MySQL 8.0 -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+    </dependencies>
 </project>

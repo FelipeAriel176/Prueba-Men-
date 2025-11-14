@@ -4,9 +4,12 @@
  */
 package Vistas;
 
+import DAO.UsuarioDAO;
+import Modelo.Usuario;
 import com.mycompany.prueba2menu.main;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,6 +23,7 @@ public class VistaUsuario extends javax.swing.JFrame {
      * Creates new form VistaUsuario
      */
     private int filaSeleccionada = -1;
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     
     public VistaUsuario() {
         initComponents();
@@ -28,11 +32,12 @@ public class VistaUsuario extends javax.swing.JFrame {
     }
     
     private void actualizarTabla() {
+        ArrayList<Usuario> listaUsuarios = usuarioDAO.listarUsuarios();
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("Usuario");
         modeloTabla.addColumn("Contraseña");
         
-        for (Modelo.Usuario u : com.mycompany.prueba2menu.main.listaUsuarios) {
+        for (Modelo.Usuario u : listaUsuarios) {
             modeloTabla.addRow(new Object[]{
                 u.getNombreUsuario(),
                 u.getContraseña()
@@ -190,11 +195,11 @@ public class VistaUsuario extends javax.swing.JFrame {
 
     private void tblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuariosMouseClicked
 filaSeleccionada = tblUsuarios.getSelectedRow();
-    
-    if (filaSeleccionada != -1) {
-        Modelo.Usuario usuarioSeleccionado = com.mycompany.prueba2menu.main.listaUsuarios.get(filaSeleccionada);
-        txtUsuario.setText(usuarioSeleccionado.getNombreUsuario());
-        txtContraseña.setText(usuarioSeleccionado.getContraseña());
+        if (filaSeleccionada != -1) {
+            String nombreUsuario = (String) tblUsuarios.getValueAt(filaSeleccionada, 0); 
+            String contraseña = (String) tblUsuarios.getValueAt(filaSeleccionada, 1);    
+            txtUsuario.setText(nombreUsuario);
+            txtContraseña.setText(contraseña);        
     }    }//GEN-LAST:event_tblUsuariosMouseClicked
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -203,25 +208,22 @@ filaSeleccionada = tblUsuarios.getSelectedRow();
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
     String nombre = txtUsuario.getText().trim();
-    String pass = new String(txtContraseña.getPassword()).trim(); // Si es JPasswordField
+    String pass = new String(txtContraseña.getPassword()).trim(); 
 
     if (nombre.isEmpty() || pass.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Complete ambos campos.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    for (Modelo.Usuario u : main.listaUsuarios) {
-        if (u.getNombreUsuario().equalsIgnoreCase(nombre)) {
-            JOptionPane.showMessageDialog(this, "El nombre de usuario ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+        Modelo.Usuario nuevoUsuario = new Modelo.Usuario(nombre, pass);
+        
+        if (usuarioDAO.agregarUsuario(nuevoUsuario)) {
+            actualizarTabla();
+            NuevoCampo();
+            JOptionPane.showMessageDialog(this, "Usuario agregado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "El nombre ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-    Modelo.Usuario nuevoUsuario = new Modelo.Usuario(nombre, pass);
-    main.listaUsuarios.add(nuevoUsuario);
-    
-    actualizarTabla();
-    NuevoCampo();
-    JOptionPane.showMessageDialog(this, "Usuario agregado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -237,38 +239,34 @@ if (filaSeleccionada == -1) {
         JOptionPane.showMessageDialog(this, "Campo/s vacío.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-
-    Modelo.Usuario usuarioAEditar = main.listaUsuarios.get(filaSeleccionada);
-
-    for (int i = 0; i < main.listaUsuarios.size(); i++) {
-        if (i != filaSeleccionada && main.listaUsuarios.get(i).getNombreUsuario().equalsIgnoreCase(nombre)) {
-            JOptionPane.showMessageDialog(this, "El nombre de usuario ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+        Modelo.Usuario usuarioAEditar = new Modelo.Usuario(nombre, pass);       
+        if (usuarioDAO.modificarUsuario(usuarioAEditar)) {
+            actualizarTabla();
+            NuevoCampo();
+            JOptionPane.showMessageDialog(this, "Usuario modificado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "El usuario no fue encontrado o el nombre de usuario ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-    
-    usuarioAEditar.setNombreUsuario(nombre);
-    usuarioAEditar.setContraseña(pass);
-    
-    actualizarTabla();
-    NuevoCampo();
-    JOptionPane.showMessageDialog(this, "Usuario modificado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
 if (filaSeleccionada == -1) {
-        JOptionPane.showMessageDialog(this, "Seleccione un usuario para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    
-    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar el usuario seleccionado?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-    
-    if (confirmacion == JOptionPane.YES_OPTION) {
-        main.listaUsuarios.remove(filaSeleccionada);
-        actualizarTabla();
-        NuevoCampo();
-        JOptionPane.showMessageDialog(this, "Usuario eliminado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    }
+            JOptionPane.showMessageDialog(this, "Seleccione un usuario para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String nombreUsuarioAEliminar = (String) tblUsuarios.getValueAt(filaSeleccionada, 0);
+
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar el usuario seleccionado?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+        
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            if (usuarioDAO.eliminarUsuario(nombreUsuarioAEliminar)) {
+                actualizarTabla();
+                NuevoCampo();
+                JOptionPane.showMessageDialog(this, "Usuario eliminado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al eliminar el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     /**

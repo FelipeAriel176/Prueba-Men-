@@ -4,6 +4,7 @@
  */
 package Vistas;
 
+import DAO.PaisDAO; 
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
@@ -17,6 +18,7 @@ import java.util.Set;
 public class VistaPaisUSUARIO extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPaisUSUARIO.class.getName());
+    private final PaisDAO paisDAO = new PaisDAO();
     
     /**
      * Creates new form VistaPaisUSUARIO
@@ -48,34 +50,25 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
 }
     
     private void actualizarTabla() {
-    actualizarTabla(com.mycompany.prueba2menu.main.listaPaises);
-    DefaultTableModel modeloTabla = new DefaultTableModel();
-    modeloTabla.addColumn("Nombre");
-    modeloTabla.addColumn("Continente");
-    modeloTabla.addColumn("Población");
-    modeloTabla.addColumn("Codigo");
-    
-    for (Modelo.Pais p : com.mycompany.prueba2menu.main.listaPaises) {
-        modeloTabla.addRow(new Object[]{
-                p.getNombre(),
-                p.getContinente(),
-                p.getPoblacion(),
-                p.getCodigo(),
-                });
+    ArrayList<Modelo.Pais> todosLosPaises = paisDAO.listarPaises(); 
+    actualizarTabla(todosLosPaises);
     }
-tblPais.setModel(modeloTabla); 
-}
     
     private void cargarFiltroPais() {
     DefaultComboBoxModel modelo = new DefaultComboBoxModel(); 
     modelo.addElement("Mostrar todo");
-    Set<String> continentesUnicos = new HashSet<>();
-    for (Modelo.Pais p : com.mycompany.prueba2menu.main.listaPaises) {
-        continentesUnicos.add(p.getContinente().trim()); 
-    }
-    for (String continente : continentesUnicos) {
-        modelo.addElement(continente);
-    }
+    
+        ArrayList<Modelo.Pais> todosLosPaises = paisDAO.listarPaises(); 
+        Set<String> continentesUnicos = new HashSet<>();
+        
+        for (Modelo.Pais p : todosLosPaises) {
+            if (p.getContinente() != null && !p.getContinente().trim().isEmpty()) {
+                continentesUnicos.add(p.getContinente().trim()); 
+            }
+        }
+        for (String continente : continentesUnicos) {
+            modelo.addElement(continente);
+        }
         cmbPais.setModel(modelo);
 }
     
@@ -160,22 +153,14 @@ tblPais.setModel(modeloTabla);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed
-        Object itemSeleccionado = cmbPais.getSelectedItem();
-     
-        if (itemSeleccionado == null || itemSeleccionado.toString().contains("Mostrar todo")) {
-        actualizarTabla(com.mycompany.prueba2menu.main.listaPaises);
-        return;
+    String nombreSeleccionado = (String) cmbPais.getSelectedItem();    
+        if (nombreSeleccionado == null || nombreSeleccionado.equals("Mostrar todo")) {
+            actualizarTabla(paisDAO.listarPaises());
+            return;
         }
-        
-        String filtro = itemSeleccionado.toString().trim().toLowerCase();
-        ArrayList<Modelo.Pais> resultadosFiltrados = new ArrayList<>();
-        for (Modelo.Pais p : com.mycompany.prueba2menu.main.listaPaises) {
-        if (p.getContinente().trim().toLowerCase().equals(filtro)) {
-                resultadosFiltrados.add(p);
-        }
-    }
+        String filtro = nombreSeleccionado.trim();
+        ArrayList<Modelo.Pais> resultadosFiltrados = paisDAO.listarPaisesPorContinente(filtro);        
         actualizarTabla(resultadosFiltrados);
-        
     }//GEN-LAST:event_cmbPaisActionPerformed
 
     /**

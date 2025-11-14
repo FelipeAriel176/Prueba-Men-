@@ -4,6 +4,8 @@
  */
 package Vistas;
 
+import DAO.PaisDAO; 
+import Modelo.Pais;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,26 +15,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VistaPaís extends javax.swing.JFrame {
     
+    private final PaisDAO paisDAO = new PaisDAO();
+    
     private int filaSeleccionada = -1;
     
     private void actualizarTabla() {
-        
-    DefaultTableModel modeloTabla = new DefaultTableModel();
-    modeloTabla.addColumn("Nombre");
-    modeloTabla.addColumn("Continente");
-    modeloTabla.addColumn("Población");
-    modeloTabla.addColumn("Codigo");
-    
-    for (Modelo.Pais p : com.mycompany.prueba2menu.main.listaPaises) {
-        modeloTabla.addRow(new Object[]{
-                p.getNombre(),
-                p.getContinente(),
-                p.getPoblacion(), 
-                p.getCodigo(),
-        });
-        }
-        tblPaises.setModel(modeloTabla);
-        }
+    ArrayList<Modelo.Pais> listaPaises = paisDAO.listarPaises(); 
+    actualizarTabla(listaPaises); 
+    }
     
     private void actualizarTabla (ArrayList<Modelo.Pais> listaPaisesAMostrar) {
    
@@ -53,13 +43,13 @@ public class VistaPaís extends javax.swing.JFrame {
     tblPaises.setModel(modeloTabla);
 }
     
-    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPaís.class.getName());
     /**
      * Creates new form VistaPaís
      */
         public VistaPaís() {
         initComponents();
+        actualizarTabla();
         this.setLocationRelativeTo(null);
     }
     /**
@@ -322,12 +312,13 @@ public class VistaPaís extends javax.swing.JFrame {
                 nombre,
                 continente,
                 poblacion);
-        
-        com.mycompany.prueba2menu.main.listaPaises.add(nuevoPais);
-        
-        actualizarTabla(); 
-        NuevoCampo();
-        JOptionPane.showMessageDialog(this, "País agregado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        if (paisDAO.agregarPais(nuevoPais)) {
+                actualizarTabla(); 
+                NuevoCampo();
+                JOptionPane.showMessageDialog(this, "País agregado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                 JOptionPane.showMessageDialog(this, "El código o nombre ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } 
         catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Código o población debe tener un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -339,13 +330,17 @@ public class VistaPaís extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Seleccione un país para eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
+    int codigoAEliminar = (int) tblPaises.getValueAt(filaSeleccionada, 3);
     int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
     if (confirmacion == JOptionPane.YES_OPTION) {
-        com.mycompany.prueba2menu.main.listaPaises.remove(filaSeleccionada);
-        actualizarTabla();
-        NuevoCampo();
-        JOptionPane.showMessageDialog(this, "País eliminado con éxito", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
-    }
+        if (paisDAO.eliminarPais(codigoAEliminar)) {
+                actualizarTabla();
+                NuevoCampo();
+                JOptionPane.showMessageDialog(this, "País eliminado con éxito", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al eliminar el país.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -356,14 +351,12 @@ public class VistaPaís extends javax.swing.JFrame {
     if (filaSeleccionada == -1) {
         JOptionPane.showMessageDialog(this, "Seleccione el país a modificar", "Error", JOptionPane.ERROR_MESSAGE);
         return;
-    }
-    
+    }    
     String nombre = txtNombre.getText().trim();
     if (nombre.isEmpty()) {
         JOptionPane.showMessageDialog(this, "El nombre es obligatorio.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
-    }
-    
+    }   
     String continente = txtContinente.getText().trim();
     if (continente.isEmpty()) {
         JOptionPane.showMessageDialog(this, "El continente es obligatorio.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -371,26 +364,25 @@ public class VistaPaís extends javax.swing.JFrame {
     }
     
     try {
-    Modelo.Pais paisAEditar = com.mycompany.prueba2menu.main.listaPaises.get(filaSeleccionada);
-    int nuevaPoblacion = Integer.parseInt(txtPoblacion.getText().trim());                
-    int nuevoCodigo = Integer.parseInt(txtCodigo.getText().trim());
-    
+        int nuevoCodigo = Integer.parseInt(txtCodigo.getText().trim());
+        int nuevaPoblacion = Integer.parseInt(txtPoblacion.getText().trim());
     if (nuevaPoblacion <= 0) {
                 JOptionPane.showMessageDialog(this, "La población debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
     }
     
-    paisAEditar.setNombre(txtNombre.getText().trim());
-    paisAEditar.setContinente(txtContinente.getText().trim());
-    paisAEditar.setCodigo(nuevoCodigo);
-    paisAEditar.setPoblacion(nuevaPoblacion);
-        
-    actualizarTabla();
-        NuevoCampo();
-        JOptionPane.showMessageDialog(this, "País modificado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    Modelo.Pais paisAEditar = new Modelo.Pais(nuevoCodigo, nombre, continente, nuevaPoblacion);
+    
+    if (paisDAO.modificarPais(paisAEditar)) {
+                actualizarTabla();
+                NuevoCampo();
+                JOptionPane.showMessageDialog(this, "País modificado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                 JOptionPane.showMessageDialog(this, "Error al modificar. El código no fue encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "La población y código deben tener números válidos.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+            JOptionPane.showMessageDialog(this, "La población y código deben tener números válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
@@ -398,26 +390,22 @@ public class VistaPaís extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void tblPaisesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPaisesMouseClicked
-    filaSeleccionada = tblPaises.getSelectedRow();
+   filaSeleccionada = tblPaises.getSelectedRow();
         if (filaSeleccionada != -1) {
-    Modelo.Pais paisSeleccionado = com.mycompany.prueba2menu.main.listaPaises.get(filaSeleccionada);
-        txtNombre.setText(paisSeleccionado.getNombre());
-        txtContinente.setText(paisSeleccionado.getContinente());
-        txtPoblacion.setText(String.valueOf(paisSeleccionado.getPoblacion()));
-        txtCodigo.setText(String.valueOf(paisSeleccionado.getCodigo()));
+            String nombre = (String) tblPaises.getValueAt(filaSeleccionada, 0);
+            String continente = (String) tblPaises.getValueAt(filaSeleccionada, 1);
+            String poblacion = String.valueOf(tblPaises.getValueAt(filaSeleccionada, 2));
+            String codigo = String.valueOf(tblPaises.getValueAt(filaSeleccionada, 3));            
+            txtNombre.setText(nombre);
+            txtContinente.setText(continente);
+            txtPoblacion.setText(poblacion);
+            txtCodigo.setText(codigo);
         }
     }//GEN-LAST:event_tblPaisesMouseClicked
 
     private void txtFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltrarActionPerformed
-        String textoBuscado = txtConsulta.getText().trim().toLowerCase();
-        ArrayList<Modelo.Pais> resultados = new ArrayList<>();
-        for (Modelo.Pais p : com.mycompany.prueba2menu.main.listaPaises) {
-                String nombrePaisLimpio = p.getNombre().trim().toLowerCase();
-        
-        if (nombrePaisLimpio.contains(textoBuscado)) { 
-                resultados.add(p);
-        }
-}
+        String textoBuscado = txtConsulta.getText().trim();
+        ArrayList<Modelo.Pais> resultados = paisDAO.listarPaisesFiltrados(textoBuscado);       
         actualizarTabla(resultados);
     }//GEN-LAST:event_txtFiltrarActionPerformed
 

@@ -4,9 +4,13 @@
  */
 package Vistas;
 
+import DAO.CiudadDAO; 
+import DAO.PaisDAO; 
+import Modelo.Ciudad;
 import com.mycompany.prueba2menu.main;
 import javax.swing.DefaultComboBoxModel;
 import Modelo.Pais;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,22 +20,27 @@ public class VistaCiudades extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaCiudades.class.getName());
     
     private int filaSeleccionada = -1;
+    private CiudadDAO ciudadDAO = new CiudadDAO(); 
+    private PaisDAO paisDAO = new PaisDAO();
     
     private void actualizarTabla() {
-    DefaultTableModel modeloTabla = new DefaultTableModel();
-    modeloTabla.addColumn("Nombre");
-    modeloTabla.addColumn("Distrito");
-    modeloTabla.addColumn("Población");
-    
-    for (Modelo.Ciudad c : com.mycompany.prueba2menu.main.listaCiudades) {
-        modeloTabla.addRow(new Object[]{
-            c.getNombre(),
-            c.getDistrito(),
-            c.getPoblacion()
-        });
-    }
+     ArrayList<Ciudad> listaCiudades = ciudadDAO.listarCiudades(); 
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Distrito");
+        modeloTabla.addColumn("Población");
+        modeloTabla.addColumn("País Código"); 
+        
+        for (Modelo.Ciudad c : listaCiudades) {
+            modeloTabla.addRow(new Object[]{
+                c.getNombre(),
+                c.getDistrito(),
+                c.getPoblacion(),
+                c.getPais().getCodigo()
+            });
+        }
         tblCiudades.setModel(modeloTabla);
-}
+    }
     
     private void NuevoCampo() {
     txtNombreCiudad.setText("");
@@ -43,15 +52,16 @@ public class VistaCiudades extends javax.swing.JFrame {
 }
     
     private void cargarPaises() {
+    DefaultComboBoxModel modelo = new DefaultComboBoxModel();    
+    modelo.addElement("Selecciona un pais");    
     
-        DefaultComboBoxModel modelo = new DefaultComboBoxModel();    
-        modelo.addElement("Selecciona un pais");    
-    
-    for (Pais p : com.mycompany.prueba2menu.main.listaPaises) {
-        modelo.addElement(p);
+    ArrayList<Pais> listaPaises = paisDAO.listarPaises();       
+        for (Pais p : listaPaises) {
+            modelo.addElement(p);
+        }
+        cmbPais.setModel(modelo);
     }
-    cmbPais.setModel(modelo);
-}
+    
     public VistaCiudades() {
         initComponents();
         cargarPaises();
@@ -275,13 +285,16 @@ public class VistaCiudades extends javax.swing.JFrame {
                 poblacion,
                 paisSeleccionado 
         );
-        com.mycompany.prueba2menu.main.listaCiudades.add(nuevaCiudad);
-        actualizarTabla();
-        NuevoCampo();
-        JOptionPane.showMessageDialog(this, "Ciudad agregada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);       
-}       catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "La población debe ser un número entero válido.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+        if (ciudadDAO.agregarCiudad(nuevaCiudad)) {
+                actualizarTabla();
+                NuevoCampo();
+                JOptionPane.showMessageDialog(this, "Ciudad agregada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);       
+            } else {
+                 JOptionPane.showMessageDialog(this, "La ciudad ya existe en ese país .", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "La población debe ser un número entero válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        }       
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void txtNombreCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreCiudadActionPerformed
@@ -293,47 +306,59 @@ public class VistaCiudades extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbPaisActionPerformed
 
     private void tblCiudadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCiudadesMouseClicked
-    filaSeleccionada = tblCiudades.getSelectedRow();
-    
+    filaSeleccionada = tblCiudades.getSelectedRow();   
     if (filaSeleccionada != -1) {
-        Modelo.Ciudad ciudadSeleccionada = com.mycompany.prueba2menu.main.listaCiudades.get(filaSeleccionada);
-        txtNombreCiudad.setText(ciudadSeleccionada.getNombre());
-        txtDistrito.setText(ciudadSeleccionada.getDistrito());
-        txtPoblacion.setText(String.valueOf(ciudadSeleccionada.getPoblacion()));
-        cmbPais.setSelectedItem(ciudadSeleccionada.getPais());
-}
+      String nombre = (String) tblCiudades.getValueAt(filaSeleccionada, 0);
+            String distrito = (String) tblCiudades.getValueAt(filaSeleccionada, 1);
+            String poblacion = String.valueOf(tblCiudades.getValueAt(filaSeleccionada, 2));
+            int paisCodigo = (int) tblCiudades.getValueAt(filaSeleccionada, 3);
+            Pais paisSeleccionado = paisDAO.obtenerPaisPorCodigo(paisCodigo);
+            txtNombreCiudad.setText(nombre);
+            txtDistrito.setText(distrito);
+            txtPoblacion.setText(poblacion);           
+            if (paisSeleccionado != null) {
+                cmbPais.setSelectedItem(paisSeleccionado);
+            }
+        }
     }//GEN-LAST:event_tblCiudadesMouseClicked
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-
-if (filaSeleccionada == -1) {
+    if (filaSeleccionada == -1) {
         JOptionPane.showMessageDialog(this, "Selecciona una ciudad", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-
-try {
-        Modelo.Ciudad ciudadEditar = com.mycompany.prueba2menu.main.listaCiudades.get(filaSeleccionada);
-        
-        int nuevaPoblacion = Integer.parseInt(txtPoblacion.getText().trim());
-        Modelo.Pais nuevoPais = (Modelo.Pais) cmbPais.getSelectedItem();
-        
-        if (nuevaPoblacion <= 0) {
-            JOptionPane.showMessageDialog(this, "La población debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        ciudadEditar.setNombre(txtNombreCiudad.getText().trim());
-        ciudadEditar.setDistrito(txtDistrito.getText().trim());
-        ciudadEditar.setPoblacion(nuevaPoblacion);
-        ciudadEditar.setPais(nuevoPais);
-        
-        actualizarTabla();
-        NuevoCampo();
-        JOptionPane.showMessageDialog(this, "Ciudad modificada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "La población debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
-    }        
+    try {
+        String nombreOriginal = (String) tblCiudades.getValueAt(filaSeleccionada, 0);
+            int paisCodigoOriginal = (int) tblCiudades.getValueAt(filaSeleccionada, 3);
+            Pais paisOriginal = paisDAO.obtenerPaisPorCodigo(paisCodigoOriginal);
+            String nuevoNombre = txtNombreCiudad.getText().trim();
+            String nuevoDistrito = txtDistrito.getText().trim();
+            int nuevaPoblacion = Integer.parseInt(txtPoblacion.getText().trim());
+            Object itemSeleccionado = cmbPais.getSelectedItem();
+            
+            if (itemSeleccionado == null || !(itemSeleccionado instanceof Pais)) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un país válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; 
+            }    
+            Pais nuevoPais = (Pais) itemSeleccionado;
+            
+            if (nuevaPoblacion <= 0) {
+                JOptionPane.showMessageDialog(this, "La población debe ser mayor que cero.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }            
+            Ciudad ciudadOriginal = new Ciudad(nombreOriginal, "", 0, paisOriginal);
+            Ciudad ciudadNueva = new Ciudad(nuevoNombre, nuevoDistrito, nuevaPoblacion, nuevoPais);
+            
+            if (ciudadDAO.modificarCiudad(ciudadOriginal, ciudadNueva)) {
+                actualizarTabla();
+                NuevoCampo();
+                JOptionPane.showMessageDialog(this, "Ciudad modificada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                 JOptionPane.showMessageDialog(this, "Error al modificar la ciudad.", "Error", JOptionPane.ERROR_MESSAGE);
+            }            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "La población debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        }      
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -341,13 +366,19 @@ try {
         JOptionPane.showMessageDialog(this, "Seleccione una ciudad.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro?", "Confirmar", JOptionPane.YES_NO_OPTION);
-    if (confirmacion == JOptionPane.YES_OPTION) {
-        com.mycompany.prueba2menu.main.listaCiudades.remove(filaSeleccionada);
-        actualizarTabla();
-        NuevoCampo();
-        JOptionPane.showMessageDialog(this, "Ciudad eliminada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    }        
+   String nombreAEliminar = (String) tblCiudades.getValueAt(filaSeleccionada, 0);
+        int paisCodigoAEliminar = (int) tblCiudades.getValueAt(filaSeleccionada, 3);
+        
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            if (ciudadDAO.eliminarCiudad(nombreAEliminar, paisCodigoAEliminar)) {
+                actualizarTabla();
+                NuevoCampo();
+                JOptionPane.showMessageDialog(this, "Ciudad eliminada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                 JOptionPane.showMessageDialog(this, "Error al eliminar la ciudad.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed

@@ -22,13 +22,9 @@ public class CiudadDAO {
     private static final String SQL_UPDATE = "UPDATE Ciudad SET Nombre = ?, Distrito = ?, Poblacion = ?, PaisCodigo = ? WHERE Nombre = ? AND PaisCodigo = ?";
     private static final String SQL_DELETE = "DELETE FROM Ciudad WHERE Nombre = ? AND PaisCodigo = ?";
    
-    public ArrayList<Ciudad> listarCiudades(String paisCodigo) {       
-        return ejecutarSelect(SQL_SELECT_BY_COUNTRY, paisCodigo);
-    }
-    
-    public ArrayList<Ciudad> listarCiudades(int paisCodigo) {
-        return ejecutarSelect(SQL_SELECT_BY_COUNTRY, String.valueOf(paisCodigo));
-    }
+    public ArrayList<Ciudad> listarCiudades() {
+    return ejecutarSelect(SQL_SELECT_ALL);
+}
 
     public boolean agregarCiudad(Ciudad ciudad) {
         return ejecutarUpdate(SQL_INSERT, 

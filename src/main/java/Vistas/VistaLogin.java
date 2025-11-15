@@ -4,20 +4,20 @@
  */
 package Vistas;
 
+import DAO.UsuarioDAO;
 import Modelo.Usuario;
-import static com.mycompany.prueba2menu.main.listaUsuarios;
 import javax.swing.JOptionPane;
 /**
  *
  * @author FELIP
  */
-public class VistaLogin extends javax.swing.JFrame {
+    public class VistaLogin extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaLogin.class.getName());
     
     /**
      * Creates new form VistaLogin
      */
-    public VistaLogin() {
+        public VistaLogin() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -134,10 +134,6 @@ public class VistaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContraseñaActionPerformed
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
-    String name = txtUsuario.getText();
-        String pass = txtContraseña.getText();
-        Usuario usuario = new Usuario(name, pass);
-        listaUsuarios.add(usuario);
         VistaRegistro registro = new VistaRegistro();
         registro.setVisible(true);
     }//GEN-LAST:event_btnRegistrarseActionPerformed
@@ -145,27 +141,24 @@ public class VistaLogin extends javax.swing.JFrame {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         String usuario = txtUsuario.getText().trim();
         String contraseña = new String(txtContraseña.getPassword()).trim();
+        
     if (usuario.equals("admin") && contraseña.equals("123")) {
         this.setVisible(false);
         VistaMenúADMIN MenuA = new VistaMenúADMIN();
         MenuA.setVisible(true);
-            return;
+                return;
     }//GEN-LAST:event_btnEntrarActionPerformed
-    boolean encontrado = false;
-for (Modelo.Usuario user : com.mycompany.prueba2menu.main.listaUsuarios) {
-    if (user.getNombreUsuario().equalsIgnoreCase(usuario) && user.getContraseña().equals(contraseña)) {
-    encontrado = true;
-    break;
+    UsuarioDAO dao = new UsuarioDAO();
+        Usuario userLogueado = dao.login(usuario, contraseña);
+        
+        if (userLogueado != null) { 
+                VistaMenúUSUARIO vistaMenuU = new VistaMenúUSUARIO();
+                this.setVisible(false);
+                vistaMenuU.setVisible(true);
+        }       else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-} 
-    if (encontrado) {
-    VistaMenúUSUARIO vistaMenuU = new VistaMenúUSUARIO();
-    this.setVisible(false);
-    vistaMenuU.setVisible(true);
-    }   else {
-    JOptionPane.showMessageDialog(this, "Usuario o contraseña no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
     /**
      * @param args the command line arguments
      */

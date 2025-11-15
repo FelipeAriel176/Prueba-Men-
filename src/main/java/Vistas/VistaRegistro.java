@@ -3,14 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vistas;
+
+import DAO.UsuarioDAO;
 import Modelo.Usuario;
-import com.mycompany.prueba2menu.main;
 import javax.swing.JOptionPane; 
 /**
  *
  * @author FELIP
  */
-public class VistaRegistro extends javax.swing.JFrame {
+    public class VistaRegistro extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaRegistro.class.getName());
     
     /**
@@ -93,17 +94,25 @@ public class VistaRegistro extends javax.swing.JFrame {
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
     String nombre = txtUsuario.getText(); 
     String pass = txtContraseña.getText(); 
-if (nombre.isEmpty() || pass.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "El nombre/contraseña está vacío", "Error", JOptionPane.ERROR_MESSAGE);
-}
-else{
-  Usuario usuario = new Usuario(nombre, pass);
-    VistaLogin login = new VistaLogin();
-    main.listaUsuarios.add(usuario);
-    JOptionPane.showMessageDialog(this, "Usuario registrado con éxito", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-    login.setVisible(true);
+    
+    if (nombre.isEmpty() || pass.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "El nombre/contraseña está vacío", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    else{
+        Usuario usuario = new Usuario(nombre, pass);
+        UsuarioDAO dao = new UsuarioDAO();
+        
+        if (dao.agregarUsuario(usuario)) {
+                JOptionPane.showMessageDialog(this, "Usuario registrado con éxito", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+                VistaLogin login = new VistaLogin();
+                login.setVisible(true);
+                this.dispose();    
+        }       else {
+                JOptionPane.showMessageDialog(this, "El usuario podría ya existir.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 this.dispose();    }//GEN-LAST:event_btnRegistrarseActionPerformed
-}
+
     /**
      * @param args the command line arguments
      */

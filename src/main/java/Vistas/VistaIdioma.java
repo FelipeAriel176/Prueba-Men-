@@ -38,13 +38,15 @@ public class VistaIdioma extends javax.swing.JFrame {
     modeloTabla.addColumn("Oficial");
     modeloTabla.addColumn("Porcentaje Hablantes");
     modeloTabla.addColumn("País");
+    modeloTabla.addColumn("Cód. País");
     
         for (Modelo.IdiomaPais ip : listaIdiomas) {
         modeloTabla.addRow(new Object[]{
             ip.getIdioma(),
             ip.isEsOficial() ? "Si" : "No", 
             ip.getPorcentajeHablantes(),
-            ip.getPais().getNombre() 
+            ip.getPais().getNombre(),
+            ip.getPais().getCodigo()
         });
     }
     tblIdiomas.setModel(modeloTabla);
@@ -302,12 +304,6 @@ public class VistaIdioma extends javax.swing.JFrame {
                 txtIdioma.setText(idiomaNombre);
                 txtPorcentaje.setText(porcentaje);
                 chkOficial.setSelected(oficialTexto.equals("Sí"));
-            
-                Pais paisSeleccionado = paisDAO.obtenerPaisPorCodigo(paisCodigo);
-
-                if (paisSeleccionado != null) {
-                cmbPais.setSelectedItem(paisSeleccionado);
-            }
         }
     }//GEN-LAST:event_tblIdiomasMouseClicked
 
@@ -367,7 +363,7 @@ if (filaSeleccionada == -1) {
             return;
         }
         String idiomaAEliminar = (String) tblIdiomas.getValueAt(filaSeleccionada, 0);
-        String paisCodigoAEliminar = (String) tblIdiomas.getValueAt(filaSeleccionada, 4);
+        int paisCodigoAEliminar = (int) tblIdiomas.getValueAt(filaSeleccionada, 4);
 
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro?", "Confirmar", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {

@@ -26,17 +26,19 @@ public class Conexion {
     
     private Conexion () {          
         try {
-            // Cargar el driver (opcional desde JDBC 4.0, pero se puede incluir)
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            // Crear la conexión
-            conn = DriverManager.getConnection(CONN, USER, PASSWORD);
-            System.out.println("✅ Conexión exitosa a MySQL 8.0.33");
+                // Cargar el driver (opcional desde JDBC 4.0, pero se puede incluir)
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                // Crear la conexión
+                conn = DriverManager.getConnection(CONN, USER, PASSWORD);
+                System.out.println("✅ Conexión exitosa a MySQL 8.0.33");
         } catch (ClassNotFoundException e) {
-            System.out.println("❌ No se encontró el driver JDBC");
-            e.printStackTrace();
+                System.out.println("❌ No se encontró el driver JDBC");
+                e.printStackTrace();
+                throw new RuntimeException("No se encontró el driver JDBC de MySQL.", e);
         } catch (SQLException e) {
-            System.out.println("❌ Error al conectar con la base de datos");
-            e.printStackTrace();
+                System.out.println("❌ Error al conectar con la base de datos");
+                e.printStackTrace();
+                throw new RuntimeException("Error: Fallo la conexión a la base de datos 'mundo'.", e);
         }
     }
     

@@ -58,7 +58,7 @@ public class Pais {
 
     @Override
     public String toString() {
-        return "Pais{" + "codigo=" + codigo + ", nombre=" + nombre + ", continente=" + continente + ", poblacion=" + poblacion + '}';
+        return nombre + codigo + continente + poblacion;
     }
     private static final System.Logger LOG = System.getLogger(Pais.class.getName());
 

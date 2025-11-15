@@ -134,10 +134,10 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
     }
     
     private void cargarPaises() {
-        DefaultComboBoxModel<Object> modelo = new DefaultComboBoxModel<>();
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel<>();
         modelo.addElement("Mostrar todo");
 
-    ArrayList<Pais> listaPaises = paisDAO.listarPaises();
+        ArrayList<Pais> listaPaises = paisDAO.listarPaises();
     
         for (Pais p : listaPaises) {
                 modelo.addElement(p); 
@@ -154,18 +154,18 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
     private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed
         Object itemSeleccionado = cmbPais.getSelectedItem();
         
-        if (itemSeleccionado == null || itemSeleccionado.toString().contains("Mostrar todas las ciudades")) {
+        if (itemSeleccionado == null || itemSeleccionado.toString().equals("Mostrar todo")) {
                 actualizarTabla();
                 return;
                 }        
 
-        if (itemSeleccionado instanceof Pais) {
+       if (itemSeleccionado instanceof Pais) {
                 Pais paisSeleccionado = (Pais) itemSeleccionado;
                 int codigoPais = paisSeleccionado.getCodigo();
             
                 ArrayList<Ciudad> resultadosFiltrados = ciudadDAO.listarCiudades(codigoPais); 
                 actualizarTabla(resultadosFiltrados);
-                } 
+                }     
     }//GEN-LAST:event_cmbPaisActionPerformed
 
     /**

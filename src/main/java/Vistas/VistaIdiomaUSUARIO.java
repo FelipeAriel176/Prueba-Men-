@@ -4,6 +4,9 @@
  */
 package Vistas;
 
+import DAO.IdiomaDAO; 
+import DAO.PaisDAO;   
+import Modelo.IdiomaPais;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import Modelo.Pais; 
@@ -15,7 +18,9 @@ import javax.swing.table.DefaultTableModel;
 public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaIdiomaUSUARIO.class.getName());
-
+    private final IdiomaDAO idiomaDAO = new IdiomaDAO();
+    private final PaisDAO paisDAO = new PaisDAO();
+    
     /**
      * Creates new form VistaIdiomaUSUARIO
      */
@@ -130,16 +135,19 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
     }
     
     private void actualizarTabla() {
-        actualizarTabla(com.mycompany.prueba2menu.main.listaIdiomas);
-    }
+        ArrayList<IdiomaPais> listaIdiomas = idiomaDAO.listarIdiomas(); 
+        actualizarTabla(listaIdiomas);   
+        }
     
     private void cargarPaises() {
-        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();    
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel<>();    
         modelo.addElement("Mostrar todo");    
     
-        for (Pais p : com.mycompany.prueba2menu.main.listaPaises) {
+        ArrayList<Pais> listaPaises = paisDAO.listarPaises();
+        
+        for (Pais p : listaPaises) {                
                 modelo.addElement(p.getNombre());
-            }
+                }
         cmbIdioma.setModel(modelo);
     }
             
@@ -150,20 +158,18 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void cmbIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbIdiomaActionPerformed
-    String nombreSeleccionado = (String) cmbIdioma.getSelectedItem();
-
-    if (nombreSeleccionado == null || nombreSeleccionado.equals("Mostrar todo")) {
-                actualizarTabla(com.mycompany.prueba2menu.main.listaIdiomas);
-                return;
-        }
+        Object itemSeleccionado = cmbIdioma.getSelectedItem();
     
-        ArrayList<Modelo.IdiomaPais> filtro = new ArrayList<>();
-        for (Modelo.IdiomaPais i : com.mycompany.prueba2menu.main.listaIdiomas) {
-                if (i.getPais().getNombre().equals(nombreSeleccionado)) {
-                filtro.add(i);
+        if (itemSeleccionado == null || itemSeleccionado.toString().equals("Mostrar todo")) {
+                actualizarTabla(); 
+                return;
                 }
+        if (itemSeleccionado instanceof Pais) {
+                Pais paisSeleccionado = (Pais) itemSeleccionado;
+                int codigoPais = paisSeleccionado.getCodigo();           
+                ArrayList<IdiomaPais> resultadosFiltrados = idiomaDAO.listarIdiomasPorPais(codigoPais); 
+                actualizarTabla(resultadosFiltrados);
         }
-        actualizarTabla(filtro);
     }//GEN-LAST:event_cmbIdiomaActionPerformed
 
     /**

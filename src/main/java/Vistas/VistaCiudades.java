@@ -24,14 +24,14 @@ public class VistaCiudades extends javax.swing.JFrame {
     private PaisDAO paisDAO = new PaisDAO();
     
     private void actualizarTabla() {
-     ArrayList<Ciudad> listaCiudades = ciudadDAO.listarCiudades(); 
+        ArrayList<Ciudad> listarCiudades = ciudadDAO.listarCiudades(); 
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("Nombre");
         modeloTabla.addColumn("Distrito");
         modeloTabla.addColumn("Población");
         modeloTabla.addColumn("País Código"); 
         
-        for (Modelo.Ciudad c : listaCiudades) {
+        for (Modelo.Ciudad c : listarCiudades) {
             modeloTabla.addRow(new Object[]{
                 c.getNombre(),
                 c.getDistrito(),

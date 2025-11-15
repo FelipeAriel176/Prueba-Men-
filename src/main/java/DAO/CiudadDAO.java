@@ -21,21 +21,22 @@ public class CiudadDAO {
     private static final String SQL_INSERT = "INSERT INTO Ciudad (Nombre, Distrito, Poblacion, PaisCodigo) VALUES (?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE Ciudad SET Nombre = ?, Distrito = ?, Poblacion = ?, PaisCodigo = ? WHERE Nombre = ? AND PaisCodigo = ?";
     private static final String SQL_DELETE = "DELETE FROM Ciudad WHERE Nombre = ? AND PaisCodigo = ?";
-    public ArrayList<Ciudad> listarCiudades() {
-        return ejecutarSelect(SQL_SELECT_ALL);
+   
+    public ArrayList<Ciudad> listarCiudades(String paisCodigo) {       
+        return ejecutarSelect(SQL_SELECT_BY_COUNTRY, paisCodigo);
     }
     
-    public ArrayList<Ciudad> listarCiudadesPorPais(int paisCodigo) {
+    public ArrayList<Ciudad> listarCiudades(int paisCodigo) {
         return ejecutarSelect(SQL_SELECT_BY_COUNTRY, String.valueOf(paisCodigo));
     }
 
     public boolean agregarCiudad(Ciudad ciudad) {
         return ejecutarUpdate(SQL_INSERT, 
-            ciudad.getNombre(),
-            ciudad.getDistrito(),
-            String.valueOf(ciudad.getPoblacion()),
-            String.valueOf(ciudad.getPais().getCodigo()));
-    }
+                ciudad.getNombre(),
+                ciudad.getDistrito(),
+                String.valueOf(ciudad.getPoblacion()),
+                String.valueOf(ciudad.getPais().getCodigo()));
+        }
 
     public boolean modificarCiudad(Ciudad ciudadOriginal, Ciudad ciudadNueva) {
         return ejecutarUpdate(SQL_UPDATE, 
@@ -58,14 +59,14 @@ public class CiudadDAO {
         ResultSet rs = null;
 
         try {
-            conn = Conexion.getInstancia();
-            ps = conn.prepareStatement(sql);
-            for (int i = 0; i < params.length; i++) {
+                conn = Conexion.getInstancia();
+                ps = conn.prepareStatement(sql);
+                for (int i = 0; i < params.length; i++) {
                 ps.setString(i + 1, params[i]);
-            }
-            rs = ps.executeQuery();
+                }
+                rs = ps.executeQuery();
 
-            while (rs.next()) {
+               while (rs.next()) {
                 String nombre = rs.getString("Nombre");
                 String distrito = rs.getString("Distrito");
                 int poblacion = rs.getInt("Poblacion");

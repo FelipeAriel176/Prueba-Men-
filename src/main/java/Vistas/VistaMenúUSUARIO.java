@@ -30,7 +30,6 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnVolver = new javax.swing.JButton();
         btnCiudades = new javax.swing.JButton();
         btnPaises = new javax.swing.JButton();
         btnIdioma = new javax.swing.JButton();
@@ -41,13 +40,6 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
         jLabel1.setText("Selecciona una de las opciones");
 
         jLabel2.setText("Usuario");
-
-        btnVolver.setText("Volver");
-        btnVolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverActionPerformed(evt);
-            }
-        });
 
         btnCiudades.setText("Ciudades");
         btnCiudades.addActionListener(new java.awt.event.ActionListener() {
@@ -77,9 +69,7 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnVolver)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(65, 65, 65)
@@ -98,27 +88,19 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(btnVolver))
-                .addGap(58, 58, 58)
+                .addComponent(jLabel2)
+                .addGap(62, 62, 62)
                 .addComponent(jLabel1)
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPaises, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-    VistaLogin login = new VistaLogin();
-    this.setVisible(false);
-    login.setVisible(true);
-    }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCiudadesActionPerformed
     VistaCiudadUSUARIO ciudadU = new VistaCiudadUSUARIO();
@@ -149,7 +131,6 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
     private javax.swing.JButton btnCiudades;
     private javax.swing.JButton btnIdioma;
     private javax.swing.JButton btnPaises;
-    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables

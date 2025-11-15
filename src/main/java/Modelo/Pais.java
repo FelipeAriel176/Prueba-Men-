@@ -58,11 +58,9 @@ public class Pais {
 
     @Override
     public String toString() {
-        return nombre + codigo + continente + poblacion;
+        return nombre;
     }
     private static final System.Logger LOG = System.getLogger(Pais.class.getName());
-
-  
 }
  
     

@@ -14,13 +14,10 @@ import java.util.ArrayList;
 
 public class PaisDAO {
 
-    private static final String SQL_SELECT_ALL = "SELECT Codigo, Nombre, Continente, Poblacion FROM Pais";
-    private static final String SQL_SELECT_BY_CODE = "SELECT Codigo, Nombre, Continente, Poblacion FROM Pais WHERE Codigo = ?";
-    private static final String SQL_SELECT_FILTER_NAME = "SELECT Codigo, Nombre, Continente, Poblacion FROM Pais WHERE Nombre LIKE ?";
-    private static final String SQL_SELECT_FILTER_CONTINENT = "SELECT Codigo, Nombre, Continente, Poblacion FROM Pais WHERE Continente = ?";
-    private static final String SQL_INSERT = "INSERT INTO Pais (Codigo, Nombre, Continente, Poblacion) VALUES (?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE Pais SET Nombre = ?, Continente = ?, Poblacion = ? WHERE Codigo = ?";
-    private static final String SQL_DELETE = "DELETE FROM Pais WHERE Codigo = ?";
+    private static final String SQL_SELECT_ALL = "SELECT codigoPais, nombrePais, continentePais, poblacionPais FROM Pais";
+    private static final String SQL_SELECT_BY_CODE = "SELECT codigoPais, nombrePais, continentePais, poblacionPais FROM Pais WHERE codigoPais = ?";
+    private static final String SQL_SELECT_FILTER_NAME = "SELECT codigoPais, nombrePais, continentePais, poblacionPais FROM Pais WHERE nombrePais LIKE ?";
+    private static final String SQL_SELECT_FILTER_CONTINENT = "SELECT codigoPais, nombrePais, continentePais, poblacionPais FROM Pais WHERE continentePais = ?";
 
     public ArrayList<Pais> listarPaises() {
         return ejecutarSelect(SQL_SELECT_ALL);
@@ -37,31 +34,7 @@ public class PaisDAO {
     public Pais obtenerPaisPorCodigo(int codigo) {
         ArrayList<Pais> resultado = ejecutarSelect(SQL_SELECT_BY_CODE, String.valueOf(codigo));
         return resultado.isEmpty() ? null : resultado.get(0);
-    }
-
-    public boolean agregarPais(Pais pais) {
-        return ejecutarUpdate(SQL_INSERT, 
-            String.valueOf(pais.getCodigo()),
-            pais.getNombre(),
-            pais.getContinente(),
-            String.valueOf(pais.getPoblacion()));
-    }
-
-    public boolean modificarPais(Pais pais) {
-        return ejecutarUpdate(SQL_UPDATE, 
-            pais.getNombre(),
-            pais.getContinente(),
-            String.valueOf(pais.getPoblacion()),
-            String.valueOf(pais.getCodigo())); 
-    }
-
-    public boolean eliminarPais(int codigo) {
-        return ejecutarUpdate(SQL_DELETE, String.valueOf(codigo));
-    }
-    
-    // ----------------------------------------------------
-    // Lógica Auxiliar de Ejecución
-    // ----------------------------------------------------
+        }
 
     private ArrayList<Pais> ejecutarSelect(String sql, String... params) {
         ArrayList<Pais> lista = new ArrayList<>();
@@ -70,52 +43,36 @@ public class PaisDAO {
         ResultSet rs = null;
 
         try {
-            conn = Conexion.getInstancia();
-            ps = conn.prepareStatement(sql);
-            for (int i = 0; i < params.length; i++) {
+                conn = Conexion.getInstancia();
+                ps = conn.prepareStatement(sql);
+                for (int i = 0; i < params.length; i++) {
                 ps.setString(i + 1, params[i]);
-            }
-            rs = ps.executeQuery();
+                }
+                rs = ps.executeQuery();
 
-            while (rs.next()) {
-                int codigo = rs.getInt("Codigo");
-                String nombre = rs.getString("Nombre");
-                String continente = rs.getString("Continente");
-                int poblacion = rs.getInt("Poblacion");
-                lista.add(new Pais(codigo, nombre, continente, poblacion));
-            }
+                while (rs.next()) {
+                String codigoStr = rs.getString("codigoPais");    
+                int codigo = 0;
+                try {
+            
+        } catch (NumberFormatException ex) {            
+        } 
+        String nombre = rs.getString("nombrePais");
+        String continente = rs.getString("continentePais");
+        int poblacion = rs.getInt("poblacionPais");   
+        lista.add(new Pais(codigo, nombre, continente, poblacion));
+                 }
         } catch (SQLException e) {
-            System.err.println("Error de Select en País: " + e.getMessage());
+                System.err.println("Error de Select en País: " + e.getMessage());
+                throw new RuntimeException("Error al ejecutar select en PaisDAO: " + e.getMessage(), e);
         } finally {
-            try {
+                try {
                 if (rs != null) rs.close();
                 if (ps != null) ps.close();
             } catch (SQLException e) {
                 System.err.println("Error al cerrar recursos en País: " + e.getMessage());
-            }
+                }
         }
         return lista;
-    }
-
-    private boolean ejecutarUpdate(String sql, String... params) {
-        Connection conn = null;
-        PreparedStatement ps = null;
-        try {
-            conn = Conexion.getInstancia();
-            ps = conn.prepareStatement(sql);
-            for (int i = 0; i < params.length; i++) {
-                ps.setString(i + 1, params[i]);
-            }
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("Error de Update en País: " + e.getMessage());
-            return false;
-        } finally {
-            try {
-                if (ps != null) ps.close();
-            } catch (SQLException e) {
-                System.err.println("Error al cerrar recursos en País: " + e.getMessage());
-            }
         }
-    }
-}
+        }

@@ -4,7 +4,7 @@
 
 package com.mycompany.prueba2menu;
 
-import Vistas.VistaLogin;
+import Vistas.VistaMenúUSUARIO;
 /**
  *
  * @author FELIP
@@ -12,8 +12,8 @@ import Vistas.VistaLogin;
 public class main {
 
         public static void main(String[] args) {
-        VistaLogin login = new VistaLogin();
-        login.setVisible(true);
+        VistaMenúUSUARIO menuPrincipal = new VistaMenúUSUARIO();
+        menuPrincipal.setVisible(true);
     }
 }
 

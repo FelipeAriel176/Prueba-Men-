@@ -16,10 +16,15 @@ import java.util.ArrayList;
 public class CiudadDAO {
     
     private final PaisDAO paisDAO = new PaisDAO();
+    private static final String SQL_SELECT_FILTER_NAME = "SELECT nombreCiudad, poblacionCiudad, codigoPais FROM Ciudad WHERE nombreCiudad LIKE ?";
     
     private static final String SQL_SELECT_ALL = "SELECT nombreCiudad, poblacionCiudad, codigoPais FROM Ciudad";
     private static final String SQL_SELECT_BY_COUNTRY = "SELECT nombreCiudad, poblacionCiudad, codigoPais FROM Ciudad WHERE codigoPais = ?";
 
+    public ArrayList<Ciudad> listarCiudadesFiltradas(String textoBuscado) {
+    return ejecutarSelect(SQL_SELECT_FILTER_NAME, "%" + textoBuscado + "%");
+}
+    
     public ArrayList<Ciudad> listarCiudades(int paisCodigo) {
     return ejecutarSelect(SQL_SELECT_BY_COUNTRY, String.valueOf(paisCodigo));        
     }

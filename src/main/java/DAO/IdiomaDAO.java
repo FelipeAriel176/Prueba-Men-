@@ -17,15 +17,20 @@ public class IdiomaDAO {
 
     private final PaisDAO paisDAO = new PaisDAO();
 
-    private static final String SQL_SELECT_ALL = "SELECT nombreIdioma, oficial, codigoPais FROM Idioma";
-    private static final String SQL_SELECT_BY_COUNTRY = "SELECT nombreIdioma, oficial, codigoPais FROM Idioma WHERE codigoPais = ?";
+    private static final String SQL_SELECT_ALL = 
+            "SELECT I.nombreIdioma, I.oficial, I.codigoPais, P.nombrePais " +
+            "FROM Idioma I INNER JOIN Pais P ON I.codigoPais = P.codigoPais";
+            
+    private static final String SQL_SELECT_BY_COUNTRY = 
+            "SELECT I.nombreIdioma, I.oficial, I.codigoPais, P.nombrePais " +
+            "FROM Idioma I INNER JOIN Pais P ON I.codigoPais = P.codigoPais WHERE I.codigoPais = ?";
     
     public ArrayList<IdiomaPais> listarIdiomas() {
     return ejecutarSelect(SQL_SELECT_ALL);
     }
     
     public ArrayList<IdiomaPais> listarIdiomasPorPais(String paisCodigo) {
-        return ejecutarSelect(SQL_SELECT_BY_COUNTRY, String.valueOf(paisCodigo));
+        return ejecutarSelect(SQL_SELECT_BY_COUNTRY, paisCodigo);
     }
 
     private ArrayList<IdiomaPais> ejecutarSelect(String sql, String... params) {
@@ -46,19 +51,20 @@ public class IdiomaDAO {
                 String idioma = rs.getString("nombreIdioma");
                 boolean esOficial = rs.getBoolean("oficial");
                 String paisCodigoStr = rs.getString("codigoPais");
-                Pais pais = new Pais(paisCodigoStr, "", "", 0, false);                
+                String nombrePais = rs.getString("nombrePais");
+                Pais pais = new Pais(paisCodigoStr, nombrePais, "", 0, false);                
                 lista.add(new IdiomaPais(idioma, esOficial, 0.0, pais));
             }
         } catch (SQLException e) {
-                System.err.println("Error de Select en IdiomaPais: " + e.getMessage());
-                throw new RuntimeException("Error al ejecutar select en IdiomaDAO: " + e.getMessage(), e);
+                System.err.println("Error de Select: " + e.getMessage());
+                throw new RuntimeException("Error al ejecutar select: " + e.getMessage(), e);
         } 
                 finally {
                 try {
                 if (rs != null) rs.close();
                 if (ps != null) ps.close();
             } catch (SQLException e) {
-                System.err.println("Error al cerrar recursos en IdiomaPais: " + e.getMessage());
+                System.err.println("Error: " + e.getMessage());
             }
         }
         return lista;

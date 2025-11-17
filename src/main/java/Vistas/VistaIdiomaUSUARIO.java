@@ -45,6 +45,7 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
         tblIdioma = new javax.swing.JTable();
         cmbIdioma = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,13 +58,13 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
 
         tblIdioma.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Idioma", "Oficial", "Código país"
+                "Idioma", "Oficial", "Código país", "País"
             }
         ));
         jScrollPane1.setViewportView(tblIdioma);
@@ -78,6 +79,9 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel1.setText("Idiomas");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Filtrar por país");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,8 +90,12 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cmbIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -109,7 +117,10 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cmbIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -121,12 +132,14 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
         modeloTabla.addColumn("Idioma");
         modeloTabla.addColumn("Oficial");
         modeloTabla.addColumn("Código país");
+        modeloTabla.addColumn("País");
         
         for (Modelo.IdiomaPais i : listaIdiomasAMostrar) {
                 modeloTabla.addRow(new Object[]{
                 i.getIdioma(),
                 i.isEsOficial() ? "Si" : "No", 
-                i.getPais().getNombre()
+                i.getPais().getCodigo(),
+                i.getPais().getNombre(),
     });
         }
         tblIdioma.setModel(modeloTabla);
@@ -164,7 +177,9 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
                 }
         if (itemSeleccionado instanceof Pais) {
                 Pais paisSeleccionado = (Pais) itemSeleccionado;
-                String codigoPais = paisSeleccionado.getCodigo();           
+                
+                String codigoPais = paisSeleccionado.getCodigo();
+                
                 ArrayList<IdiomaPais> resultadosFiltrados = idiomaDAO.listarIdiomasPorPais(codigoPais); 
                 actualizarTabla(resultadosFiltrados);
         }
@@ -199,6 +214,7 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cmbIdioma;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblIdioma;
     // End of variables declaration//GEN-END:variables

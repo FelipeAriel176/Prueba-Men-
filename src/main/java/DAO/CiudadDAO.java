@@ -61,8 +61,8 @@ public class CiudadDAO {
                 
         } 
         catch (SQLException e) {
-            System.err.println("Error de Select en Ciudad: " + e.getMessage());
-        throw new RuntimeException("Error al ejecutar select en CiudadDAO: " + e.getMessage(), e);
+            System.err.println("Error de Select en ciudad: " + e.getMessage());
+        throw new RuntimeException("Error al ejecutar select: " + e.getMessage(), e);
         } finally {
                 try {
                 if (rs != null) rs.close();

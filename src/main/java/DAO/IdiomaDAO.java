@@ -24,7 +24,7 @@ public class IdiomaDAO {
     return ejecutarSelect(SQL_SELECT_ALL);
     }
     
-    public ArrayList<IdiomaPais> listarIdiomasPorPais(int paisCodigo) {
+    public ArrayList<IdiomaPais> listarIdiomasPorPais(String paisCodigo) {
         return ejecutarSelect(SQL_SELECT_BY_COUNTRY, String.valueOf(paisCodigo));
     }
 
@@ -46,7 +46,7 @@ public class IdiomaDAO {
                 String idioma = rs.getString("nombreIdioma");
                 boolean esOficial = rs.getBoolean("oficial");
                 String paisCodigoStr = rs.getString("codigoPais");
-                Pais pais = new Pais(0, paisCodigoStr, "", 0, false); 
+                Pais pais = new Pais(paisCodigoStr, "", "", 0, false);                
                 lista.add(new IdiomaPais(idioma, esOficial, 0.0, pais));
             }
         } catch (SQLException e) {

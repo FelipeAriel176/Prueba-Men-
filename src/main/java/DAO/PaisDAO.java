@@ -15,10 +15,10 @@ import java.util.ArrayList;
 public class PaisDAO {
 
     private static final String SQL_SELECT_ALL = "SELECT codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno FROM Pais";
-    private static final String SQL_SELECT_BY_CODE = "SELECT codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno FROM Pais WHERE codigoPais = ?";
     private static final String SQL_SELECT_FILTER_NAME = "SELECT codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno FROM Pais WHERE nombrePais LIKE ?";
     private static final String SQL_SELECT_FILTER_CONTINENT = "SELECT codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno FROM Pais WHERE continentePais = ?";
-
+    private static final String SQL_SELECT_BY_CODE = "SELECT codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno FROM Pais WHERE codigoPais = ?";
+    
     public ArrayList<Pais> listarPaises() {
         return ejecutarSelect(SQL_SELECT_ALL);
     }
@@ -31,7 +31,7 @@ public class PaisDAO {
         return ejecutarSelect(SQL_SELECT_FILTER_CONTINENT, continente);
     }
     
-    public Pais obtenerPaisPorCodigo(int codigo) {
+    public Pais obtenerPaisPorCodigo(String codigo) {
         ArrayList<Pais> resultado = ejecutarSelect(SQL_SELECT_BY_CODE, String.valueOf(codigo));
         return resultado.isEmpty() ? null : resultado.get(0);
         }
@@ -51,18 +51,13 @@ public class PaisDAO {
                 rs = ps.executeQuery();
 
                 while (rs.next()) {
-                String codigoStr = rs.getString("codigoPais");    
-                int codigo = 0;
+              String codigo = rs.getString("codigoPais");    
+                String nombre = rs.getString("nombrePais");
+                String continente = rs.getString("continentePais");
+                int poblacion = rs.getInt("poblacionPais");
                 boolean gobierno = rs.getBoolean("tipoGobierno");
-                try {
-            
-        } catch (NumberFormatException ex) {            
-        } 
-        String nombre = rs.getString("nombrePais");
-        String continente = rs.getString("continentePais");
-        int poblacion = rs.getInt("poblacionPais");
-        
-        lista.add(new Pais(codigo, nombre, continente, poblacion, gobierno));
+                
+                lista.add(new Pais(codigo, nombre, continente, poblacion, gobierno));
                  }
         } catch (SQLException e) {
                 System.err.println("Error de Select en País: " + e.getMessage());
@@ -77,4 +72,4 @@ public class PaisDAO {
         }
         return lista;
         }
-            }
+      }

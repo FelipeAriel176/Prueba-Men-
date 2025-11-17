@@ -9,16 +9,16 @@ package Modelo;
  * @author FELIP
  */
 public class Pais {
+    String codigo;
     String nombre;
     String continente;
     int poblacion;
-    int codigo;
     boolean tipoGobierno;
 
     public Pais() {
     }
 
-    public Pais(int codigo, String nombre, String continente, int poblacion, boolean tipoGobierno) {
+    public Pais(String codigo, String nombre, String continente, int poblacion, boolean tipoGobierno) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.continente = continente;
@@ -26,11 +26,11 @@ public class Pais {
         this.tipoGobierno = tipoGobierno;
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
@@ -41,7 +41,7 @@ public class Pais {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    
     public String getContinente() {
         return continente;
     }

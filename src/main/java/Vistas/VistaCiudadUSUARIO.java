@@ -41,6 +41,7 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
         txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnVerTodo = new javax.swing.JButton();
+        btnFiltrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,13 +54,13 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
 
         tblCiudades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Nombre", "Distrito", "Poblacion", "Pais"
+                "Ciudad", "Poblacion", "Código país"
             }
         ));
         jScrollPane1.setViewportView(tblCiudades);
@@ -97,6 +98,13 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
             }
         });
 
+        btnFiltrar.setText("Filtrar población");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,11 +114,15 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbPais, 0, 114, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbPais, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtBuscar)
                             .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnVerTodo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnVerTodo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel2)
+                                .addGap(0, 19, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -132,21 +144,21 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
                         .addContainerGap(19, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cmbPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(73, 73, 73)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnVerTodo)
-                        .addGap(12, 12, 12))))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnFiltrar)))
+                .addContainerGap())
         );
 
         pack();
@@ -156,17 +168,15 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
         DefaultTableModel modeloTabla = new DefaultTableModel();
        
         modeloTabla.addColumn("Nombre");
-        modeloTabla.addColumn("Distrito");
         modeloTabla.addColumn("Población");
-        modeloTabla.addColumn("País");
+        modeloTabla.addColumn("Código país");
         
         for (Modelo.Ciudad c : listarCiudades) {
             modeloTabla.addRow(new Object[]{
                 c.getNombre(),
-                c.getDistrito(),
                 c.getPoblacion(),
                 c.getPais().getNombre()
-                    });
+                });
         }
         tblCiudades.setModel(modeloTabla); 
     }
@@ -204,8 +214,7 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
 
        if (itemSeleccionado instanceof Pais) {
                 Pais paisSeleccionado = (Pais) itemSeleccionado;
-                int codigoPais = paisSeleccionado.getCodigo();
-            
+                String codigoPais = paisSeleccionado.getCodigo();          
                 ArrayList<Ciudad> resultadosFiltrados = ciudadDAO.listarCiudades(codigoPais); 
                 actualizarTabla(resultadosFiltrados);
                 }     
@@ -230,6 +239,11 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
     txtBuscar.setText(""); 
     actualizarTabla();
     }//GEN-LAST:event_btnVerTodoActionPerformed
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        java.util.ArrayList<Modelo.Ciudad> topCiudades = ciudadDAO.listarTopCiudades();
+        actualizarTabla(topCiudades);    
+    }//GEN-LAST:event_btnFiltrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,6 +271,7 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnVerTodo;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cmbPais;

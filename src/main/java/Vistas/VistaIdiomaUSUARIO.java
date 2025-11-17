@@ -57,13 +57,13 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
 
         tblIdioma.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Idioma", "Pais", "Porcentaje hablantes", "Oficial"
+                "Idioma", "Oficial", "Código país"
             }
         ));
         jScrollPane1.setViewportView(tblIdioma);
@@ -120,14 +120,12 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("Idioma");
         modeloTabla.addColumn("Oficial");
-        modeloTabla.addColumn("Porcentaje Hablantes");
-        modeloTabla.addColumn("País");
+        modeloTabla.addColumn("Código país");
         
         for (Modelo.IdiomaPais i : listaIdiomasAMostrar) {
-            modeloTabla.addRow(new Object[]{
+                modeloTabla.addRow(new Object[]{
                 i.getIdioma(),
                 i.isEsOficial() ? "Si" : "No", 
-                i.getPorcentajeHablantes(),
                 i.getPais().getNombre()
     });
         }
@@ -166,7 +164,7 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
                 }
         if (itemSeleccionado instanceof Pais) {
                 Pais paisSeleccionado = (Pais) itemSeleccionado;
-                int codigoPais = paisSeleccionado.getCodigo();           
+                String codigoPais = paisSeleccionado.getCodigo();           
                 ArrayList<IdiomaPais> resultadosFiltrados = idiomaDAO.listarIdiomasPorPais(codigoPais); 
                 actualizarTabla(resultadosFiltrados);
         }

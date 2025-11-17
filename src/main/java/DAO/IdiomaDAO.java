@@ -17,13 +17,8 @@ public class IdiomaDAO {
 
     private final PaisDAO paisDAO = new PaisDAO();
 
-    private static final String SQL_SELECT_ALL = 
-            "SELECT I.nombreIdioma, I.oficial, I.codigoPais, P.nombrePais " +
-            "FROM Idioma I INNER JOIN Pais P ON I.codigoPais = P.codigoPais";
-            
-    private static final String SQL_SELECT_BY_COUNTRY = 
-            "SELECT I.nombreIdioma, I.oficial, I.codigoPais, P.nombrePais " +
-            "FROM Idioma I INNER JOIN Pais P ON I.codigoPais = P.codigoPais WHERE I.codigoPais = ?";
+    private static final String SQL_SELECT_ALL = "SELECT nombreIdioma, oficial, codigoPais FROM Idioma";
+    private static final String SQL_SELECT_BY_COUNTRY = "SELECT nombreIdioma, oficial, codigoPais FROM Idioma WHERE codigoPais = ?";
     
     public ArrayList<IdiomaPais> listarIdiomas() {
     return ejecutarSelect(SQL_SELECT_ALL);
@@ -51,8 +46,7 @@ public class IdiomaDAO {
                 String idioma = rs.getString("nombreIdioma");
                 boolean esOficial = rs.getBoolean("oficial");
                 String paisCodigoStr = rs.getString("codigoPais");
-                String nombrePais = rs.getString("nombrePais");
-                Pais pais = new Pais(paisCodigoStr, nombrePais, "", 0, false);                
+                Pais pais = new Pais(paisCodigoStr, "", "", 0, false);                
                 lista.add(new IdiomaPais(idioma, esOficial, 0.0, pais));
             }
         } catch (SQLException e) {

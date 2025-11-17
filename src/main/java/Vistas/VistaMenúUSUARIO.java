@@ -8,8 +8,8 @@ package Vistas;
  *
  * @author arale
  */
+
 public class VistaMenúUSUARIO extends javax.swing.JFrame {
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaMenúUSUARIO.class.getName());
 
     /**
      * Creates new form VistaMenúUSUARIO

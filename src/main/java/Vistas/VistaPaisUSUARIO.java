@@ -15,9 +15,8 @@ import java.util.Set;
  *
  * @author FELIP
  */
-public class VistaPaisUSUARIO extends javax.swing.JFrame {
+    public class VistaPaisUSUARIO extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPaisUSUARIO.class.getName());
     private final PaisDAO paisDAO = new PaisDAO();
     
     /**
@@ -267,7 +266,7 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
                 }
             }
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        System.err.println("Error al cargar el diseño visual: " + ex.getMessage());
         }
         //</editor-fold>
 

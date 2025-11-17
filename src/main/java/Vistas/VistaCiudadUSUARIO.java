@@ -14,10 +14,8 @@ import javax.swing.table.DefaultTableModel;/**
  *
  * @author FELIP
  */
-public class VistaCiudadUSUARIO extends javax.swing.JFrame {
+    public class VistaCiudadUSUARIO extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaCiudadUSUARIO.class.getName());
-
     private final CiudadDAO ciudadDAO = new CiudadDAO();
     private final PaisDAO paisDAO = new PaisDAO();
     
@@ -270,7 +268,7 @@ public class VistaCiudadUSUARIO extends javax.swing.JFrame {
                 }
             }
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        System.err.println("Error al cargar el diseño visual: " + ex.getMessage());
         }
         //</editor-fold>
 

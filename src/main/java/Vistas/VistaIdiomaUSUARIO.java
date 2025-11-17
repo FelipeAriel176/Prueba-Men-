@@ -17,7 +17,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaIdiomaUSUARIO.class.getName());
     private final IdiomaDAO idiomaDAO = new IdiomaDAO();
     private final PaisDAO paisDAO = new PaisDAO();
     
@@ -58,13 +57,13 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
 
         tblIdioma.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Idioma", "Oficial", "Código país", "País"
+                "Idioma", "Oficial", "Código país"
             }
         ));
         jScrollPane1.setViewportView(tblIdioma);
@@ -131,15 +130,12 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("Idioma");
         modeloTabla.addColumn("Oficial");
-        modeloTabla.addColumn("Código país");
-        modeloTabla.addColumn("País");
-        
+        modeloTabla.addColumn("Código país");        
         for (Modelo.IdiomaPais i : listaIdiomasAMostrar) {
                 modeloTabla.addRow(new Object[]{
                 i.getIdioma(),
                 i.isEsOficial() ? "Si" : "No", 
                 i.getPais().getCodigo(),
-                i.getPais().getNombre(),
     });
         }
         tblIdioma.setModel(modeloTabla);
@@ -157,7 +153,7 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
         ArrayList<Pais> listaPaises = paisDAO.listarPaises();
         
         for (Pais p : listaPaises) {                
-                modelo.addElement(p.getNombre());
+                modelo.addElement(p);
                 }
         cmbIdioma.setModel(modelo);
     }
@@ -202,7 +198,7 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
                 }
             }
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        System.err.println("Error al cargar el diseño visual: " + ex.getMessage());
         }
         //</editor-fold>
 

@@ -13,15 +13,17 @@ public class Pais {
     String continente;
     int poblacion;
     int codigo;
+    boolean tipoGobierno;
 
     public Pais() {
     }
 
-    public Pais(int codigo, String nombre, String continente, int poblacion) {
+    public Pais(int codigo, String nombre, String continente, int poblacion, boolean tipoGobierno) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.continente = continente;
         this.poblacion = poblacion;
+        this.tipoGobierno = tipoGobierno;
     }
 
     public int getCodigo() {
@@ -55,11 +57,23 @@ public class Pais {
     public void setPoblacion(int poblacion) {
         this.poblacion = poblacion;
     }
+    
+    public boolean isTipoGobierno() {
+        return tipoGobierno;
+    }
 
+    public void setTipoGobierno(boolean tipoGobierno) {
+        this.tipoGobierno = tipoGobierno;
+    }
+    
     @Override
     public String toString() {
         return nombre;
     }
+    public String getTipoGobiernoTexto() {
+        return tipoGobierno ? "República" : "Monarquía/Otro";
+     }
+    
     private static final System.Logger LOG = System.getLogger(Pais.class.getName());
 }
  

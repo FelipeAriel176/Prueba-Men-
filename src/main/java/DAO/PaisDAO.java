@@ -14,10 +14,10 @@ import java.util.ArrayList;
 
 public class PaisDAO {
 
-    private static final String SQL_SELECT_ALL = "SELECT codigoPais, nombrePais, continentePais, poblacionPais FROM Pais";
-    private static final String SQL_SELECT_BY_CODE = "SELECT codigoPais, nombrePais, continentePais, poblacionPais FROM Pais WHERE codigoPais = ?";
-    private static final String SQL_SELECT_FILTER_NAME = "SELECT codigoPais, nombrePais, continentePais, poblacionPais FROM Pais WHERE nombrePais LIKE ?";
-    private static final String SQL_SELECT_FILTER_CONTINENT = "SELECT codigoPais, nombrePais, continentePais, poblacionPais FROM Pais WHERE continentePais = ?";
+    private static final String SQL_SELECT_ALL = "SELECT codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno FROM Pais";
+    private static final String SQL_SELECT_BY_CODE = "SELECT codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno FROM Pais WHERE codigoPais = ?";
+    private static final String SQL_SELECT_FILTER_NAME = "SELECT codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno FROM Pais WHERE nombrePais LIKE ?";
+    private static final String SQL_SELECT_FILTER_CONTINENT = "SELECT codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno FROM Pais WHERE continentePais = ?";
 
     public ArrayList<Pais> listarPaises() {
         return ejecutarSelect(SQL_SELECT_ALL);
@@ -53,14 +53,16 @@ public class PaisDAO {
                 while (rs.next()) {
                 String codigoStr = rs.getString("codigoPais");    
                 int codigo = 0;
+                boolean gobierno = rs.getBoolean("tipoGobierno");
                 try {
             
         } catch (NumberFormatException ex) {            
         } 
         String nombre = rs.getString("nombrePais");
         String continente = rs.getString("continentePais");
-        int poblacion = rs.getInt("poblacionPais");   
-        lista.add(new Pais(codigo, nombre, continente, poblacion));
+        int poblacion = rs.getInt("poblacionPais");
+        
+        lista.add(new Pais(codigo, nombre, continente, poblacion, gobierno));
                  }
         } catch (SQLException e) {
                 System.err.println("Error de Select en País: " + e.getMessage());
@@ -75,4 +77,4 @@ public class PaisDAO {
         }
         return lista;
         }
-        }
+            }

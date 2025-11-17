@@ -52,7 +52,7 @@ public class CiudadDAO {
                 int poblacion = rs.getInt("poblacionCiudad");
                 String paisCodigoStr = rs.getString("codigoPais");
                 
-                Pais pais = new Pais(0, paisCodigoStr, "", 0);
+                Pais pais = new Pais(0, paisCodigoStr, "", 0, false);
 
                 lista.add(new Ciudad(nombre, null, poblacion, pais));
                 }

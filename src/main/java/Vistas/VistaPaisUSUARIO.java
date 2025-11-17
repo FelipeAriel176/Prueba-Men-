@@ -25,8 +25,8 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
      */
         public VistaPaisUSUARIO() {
         initComponents();
-        actualizarTabla();
         cargarFiltroPais();
+        actualizarTabla();
         this.setLocationRelativeTo(null);
     }
         
@@ -36,14 +36,16 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
     modeloTabla.addColumn("Nombre");
     modeloTabla.addColumn("Continente");
     modeloTabla.addColumn("Población");
-    modeloTabla.addColumn("Código");
+    modeloTabla.addColumn("T.Gobierno");
+
+    
     
     for (Modelo.Pais p : listaPaisesAMostrar) {
         modeloTabla.addRow(new Object[]{
                 p.getNombre(),
                 p.getContinente(),
                 p.getPoblacion(),
-                p.getCodigo(),
+                p.getTipoGobiernoTexto()
             });
     }
         tblPais.setModel(modeloTabla);
@@ -102,13 +104,13 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
 
         tblPais.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "País", "Ciudad", "Poblacion", "Distrito"
+                "País", "Ciudad", "Poblacion", "Distrito", "T.Gobierno"
             }
         ));
         jScrollPane1.setViewportView(tblPais);
@@ -209,7 +211,7 @@ public class VistaPaisUSUARIO extends javax.swing.JFrame {
 
     private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed
     String nombreSeleccionado = (String) cmbPais.getSelectedItem();    
-        if (nombreSeleccionado == null || nombreSeleccionado.equals("Mostrar todo")) {
+        if (nombreSeleccionado == null || nombreSeleccionado.equals("Continentes")) {
             actualizarTabla(paisDAO.listarPaises());
             return;
         }

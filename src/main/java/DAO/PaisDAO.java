@@ -36,7 +36,7 @@ public class PaisDAO {
         return resultado.isEmpty() ? null : resultado.get(0);
         }
 
-    private ArrayList<Pais> ejecutarSelect(String sql, String... params) {
+     private ArrayList<Pais> ejecutarSelect(String sql, String... params) {
         ArrayList<Pais> lista = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -51,7 +51,7 @@ public class PaisDAO {
                 rs = ps.executeQuery();
 
                 while (rs.next()) {
-              String codigo = rs.getString("codigoPais");    
+                String codigo = rs.getString("codigoPais");    
                 String nombre = rs.getString("nombrePais");
                 String continente = rs.getString("continentePais");
                 int poblacion = rs.getInt("poblacionPais");

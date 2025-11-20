@@ -31,6 +31,9 @@ public class Pais {
     }
 
     public void setCodigo(String codigo) {
+        if (codigo == null || codigo.trim().length() != 3) {
+            throw new IllegalArgumentException("El código del país ('" + codigo + "') debe ser de 3 caracteres.");
+        }
         this.codigo = codigo;
     }
 
@@ -39,6 +42,9 @@ public class Pais {
     }
 
     public void setNombre(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El país no puede estar vacío.");
+        }
         this.nombre = nombre;
     }
     
@@ -55,8 +61,11 @@ public class Pais {
     }
 
     public void setPoblacion(int poblacion) {
+        if (poblacion < 0) {
+            throw new IllegalArgumentException("La población no puede ser negativa: " + poblacion);
+        }
         this.poblacion = poblacion;
-    }
+        }
     
     public boolean isTipoGobierno() {
         return tipoGobierno;

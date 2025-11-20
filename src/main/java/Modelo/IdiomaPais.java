@@ -46,6 +46,9 @@ public class IdiomaPais {
     }
 
     public void setPorcentajeHablantes(double porcentajeHablantes) {
+        if (porcentajeHablantes < 0.0 || porcentajeHablantes > 100.0) {
+            throw new IllegalArgumentException("El porcentaje de hablantes debe estar entre 0 y 100.");
+        }
         this.porcentajeHablantes = porcentajeHablantes;
     }
 

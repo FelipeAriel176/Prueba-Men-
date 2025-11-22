@@ -33,6 +33,7 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
         btnCiudades = new javax.swing.JButton();
         btnPaises = new javax.swing.JButton();
         btnIdioma = new javax.swing.JButton();
+        btnComparar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,6 +63,13 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
             }
         });
 
+        btnComparar.setText("Comparar");
+        btnComparar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompararActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,7 +86,9 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnPaises, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnComparar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnPaises, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addComponent(btnIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 68, Short.MAX_VALUE)))
@@ -96,7 +106,9 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
                     .addComponent(btnCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPaises, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnComparar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
@@ -120,6 +132,11 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
     idiomaU.setVisible(true);
     }//GEN-LAST:event_btnIdiomaActionPerformed
 
+    private void btnCompararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompararActionPerformed
+    VistaComparar vC = new VistaComparar();
+    this.setVisible(false);
+    vC.setVisible(true);    }//GEN-LAST:event_btnCompararActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -129,6 +146,7 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCiudades;
+    private javax.swing.JButton btnComparar;
     private javax.swing.JButton btnIdioma;
     private javax.swing.JButton btnPaises;
     private javax.swing.JLabel jLabel1;

@@ -16,7 +16,7 @@ public class Conexion {
 
     private static final String NAME_DB  = "mundo";
     private static final String USER     = "root";
-    private static final String PASSWORD = "p1p3x176";
+    private static final String PASSWORD = "";
     private static final String HOST     = "localhost";
     private static final String PORT     = "3306";
     private static final String CONN     = "jdbc:mysql://" + HOST + ":" + PORT + "/" + NAME_DB + "?useSSL=false&serverTimezone=UTC";

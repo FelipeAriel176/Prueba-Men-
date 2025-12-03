@@ -198,8 +198,7 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
 
     private void btnRankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRankingActionPerformed
         ArrayList<IdiomaPais> listaRanking = idiomaDAO.listarIdiomasRanking();
-        actualizarTabla();
-        cmbIdioma.setSelectedIndex(0);     
+        actualizarTabla(listaRanking);
     }//GEN-LAST:event_btnRankingActionPerformed
 
     /**

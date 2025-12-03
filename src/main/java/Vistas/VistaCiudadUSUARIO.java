@@ -132,13 +132,13 @@ import javax.swing.table.DefaultTableModel;/**
                                 .addGap(8, 8, 8)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnVolver)
-                        .addGap(192, 192, 192)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(180, 180, 180))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +227,7 @@ import javax.swing.table.DefaultTableModel;/**
                 String codigoPais = paisSeleccionado.getCodigo();          
                 ArrayList<Ciudad> resultadosFiltrados = ciudadDAO.listarCiudades(codigoPais); 
                 actualizarTabla(resultadosFiltrados);
-                }     
+                }
     }//GEN-LAST:event_cmbPaisActionPerformed
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed

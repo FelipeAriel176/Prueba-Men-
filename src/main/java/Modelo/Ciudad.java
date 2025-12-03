@@ -18,7 +18,6 @@ public class Ciudad {
 
     public Ciudad() {
     }
-    private static final System.Logger LOG = System.getLogger(Ciudad.class.getName());
 
     public Ciudad(String nombre, String distrito, int poblacion, Pais pais) {
         this.nombre = nombre;
@@ -32,6 +31,9 @@ public class Ciudad {
     }
 
     public void setNombre(String nombre) {
+        if (nombre == null) {
+                throw new IllegalArgumentException("El país no puede estar vacío.");
+        }
         this.nombre = nombre;
     }
 
@@ -48,6 +50,9 @@ public class Ciudad {
     }
 
     public void setPoblacion(int poblacion) {
+        if (poblacion < 0) {
+                throw new IllegalArgumentException("La población no puede ser negativa: " + poblacion);
+        }
         this.poblacion = poblacion;
     }
 
@@ -63,5 +68,4 @@ public class Ciudad {
     public String toString() {
         return "Ciudad{" + "nombre=" + nombre + ", distrito=" + distrito + ", poblacion=" + poblacion + ", pais=" + pais + '}';
     }
-
 }

@@ -169,6 +169,8 @@ public class VistaComparar extends javax.swing.JFrame {
             model.addRow(new Object[]{"Continente", p1.getContinente(), p2.getContinente()});
             model.addRow(new Object[]{"Población", p1.getPoblacion(), p2.getPoblacion()});
             model.addRow(new Object[]{"Gobierno", p1.getTipoGobiernoTexto(), p2.getTipoGobiernoTexto()});
+            model.addRow(new Object[]{"Superficie", p1.getSuperficie(), p2.getSuperficie()});
+            model.addRow(new Object[]{"Esperanza de vida", p1.getEsperanzaVida(), p2.getEsperanzaVida()});
         }
     }//GEN-LAST:event_btnCompararActionPerformed
 

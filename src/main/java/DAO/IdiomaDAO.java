@@ -46,7 +46,7 @@ public class IdiomaDAO {
                 String idioma = rs.getString("nombreIdioma");
                 boolean esOficial = rs.getBoolean("oficial");
                 String paisCodigoStr = rs.getString("codigoPais");
-                Pais pais = new Pais(paisCodigoStr, "", "", 0, false);                
+                Pais pais = new Pais(paisCodigoStr, "", "", 0, false, 0.0f, 0.0f);                
                 lista.add(new IdiomaPais(idioma, esOficial, 0.0, pais));
             }
         } catch (SQLException e) {

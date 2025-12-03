@@ -54,7 +54,7 @@ public class CiudadDAO {
                 String distrito = rs.getString("distritoCiudad");
                 int poblacion = rs.getInt("poblacionCiudad");
                 String paisCodigoStr = rs.getString("codigoPais");                
-                Pais pais = new Pais(paisCodigoStr, "", "", 0, false, 0.0f, 0.0f);
+                Pais pais = new Pais(paisCodigoStr);
                 lista.add(new Ciudad(nombre, distrito, poblacion, pais));
                 }
         } 

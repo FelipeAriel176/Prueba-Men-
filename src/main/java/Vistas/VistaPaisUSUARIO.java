@@ -37,8 +37,9 @@ import java.util.Set;
     modeloTabla.addColumn("Continente");
     modeloTabla.addColumn("Población");
     modeloTabla.addColumn("T.Gobierno");
-
-    
+    modeloTabla.addColumn("Región");
+    modeloTabla.addColumn("Independencia"); 
+    modeloTabla.addColumn("Jefe Estado");
     
     for (Modelo.Pais p : listaPaisesAMostrar) {
         modeloTabla.addRow(new Object[]{
@@ -46,7 +47,10 @@ import java.util.Set;
                 p.getNombre(),
                 p.getContinente(),
                 p.getPoblacion(),
-                p.getTipoGobiernoTexto()
+                p.getTipoGobierno(),
+                p.getRegion(),
+                p.getAnioIndependencia(), 
+                p.getJefeEstado()
             });
     }
         tblPais.setModel(modeloTabla);

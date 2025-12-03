@@ -13,11 +13,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PaisDAO {
-    private static final String SQL_SELECT_ALL = "SELECT codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno, superficie, esperanzaVida FROM Pais";
-    private static final String SQL_SELECT_FILTER_NAME = "SELECT codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno, superficie, esperanzaVida FROM Pais WHERE nombrePais LIKE ?";
-    private static final String SQL_SELECT_FILTER_CONTINENT = "SELECT codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno, superficie, esperanzaVida FROM Pais WHERE continentePais = ?";
-    private static final String SQL_SELECT_BY_CODE = "SELECT codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno, superficie, esperanzaVida FROM Pais WHERE codigoPais = ?";
-    
+    private static final String SQL_SELECT_ALL = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais";
+    private static final String SQL_SELECT_FILTER_NAME = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais WHERE nombrePais LIKE ?";
+    private static final String SQL_SELECT_FILTER_CONTINENT = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais WHERE continentePais = ?";
+    private static final String SQL_SELECT_BY_CODE = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais WHERE codigoPais = ?";
     public ArrayList<Pais> listarPaises() {
         return ejecutarSelect(SQL_SELECT_ALL);
     }
@@ -54,11 +53,16 @@ public class PaisDAO {
                 String nombre = rs.getString("nombrePais");
                 String continente = rs.getString("continentePais");
                 int poblacion = rs.getInt("poblacionPais");
-                boolean gobierno = rs.getBoolean("tipoGobierno");
+                String gobierno = rs.getString("tipoGobierno");
                 float superficie = rs.getFloat("superficie");
                 float esperanza = rs.getFloat("esperanzaVida");
+                String region = rs.getString("region");
+                int indepYear = rs.getInt("indepYear");
+                float gnp = rs.getFloat("gnp"); 
+                String jefe = rs.getString("jefeEstado"); 
+                int capital = rs.getInt("capital");
                 
-                lista.add(new Pais(codigo, nombre, continente, poblacion, gobierno, superficie, esperanza));
+                lista.add(new Pais(codigo, nombre, continente, poblacion, gobierno, superficie, esperanza, region, indepYear, gnp, jefe, capital));
                  }
         } catch (SQLException e) {
                 System.err.println("Error de Select en País: " + e.getMessage());

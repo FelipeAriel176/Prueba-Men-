@@ -14,8 +14,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class IdiomaDAO {
-    private static final String SQL_SELECT_ALL = "SELECT nombreIdioma, oficial, codigoPais FROM Idioma";
-    private static final String SQL_SELECT_BY_COUNTRY = "SELECT nombreIdioma, oficial, codigoPais FROM Idioma WHERE codigoPais = ?";
+    private static final String SQL_SELECT_ALL = "SELECT nombreIdioma, oficial, porcentaje, codigoPais FROM Idioma";
+    private static final String SQL_SELECT_BY_COUNTRY = "SELECT nombreIdioma, oficial, porcentaje, codigoPais FROM Idioma WHERE codigoPais = ?";
+    private static final String SQL_RANKING = "SELECT nombreIdioma, oficial, porcentaje, codigoPais FROM Idioma ORDER BY porcentaje DESC";
     
     public ArrayList<IdiomaPais> listarIdiomas() {
     return ejecutarSelect(SQL_SELECT_ALL);
@@ -25,6 +26,10 @@ public class IdiomaDAO {
         return ejecutarSelect(SQL_SELECT_BY_COUNTRY, paisCodigo);
     }
 
+    public ArrayList<IdiomaPais> listarIdiomasRanking() {
+        return ejecutarSelect(SQL_RANKING);
+    }
+    
     private ArrayList<IdiomaPais> ejecutarSelect(String sql, String... params) {
         ArrayList<IdiomaPais> lista = new ArrayList<>();
         Connection conn = null;
@@ -42,9 +47,10 @@ public class IdiomaDAO {
                 while (rs.next()) {
                 String idioma = rs.getString("nombreIdioma");
                 boolean esOficial = rs.getBoolean("oficial");
+                double porcentaje = rs.getDouble("porcentaje");
                 String paisCodigoStr = rs.getString("codigoPais");
                 Pais pais = new Pais(paisCodigoStr);                
-                lista.add(new IdiomaPais(idioma, esOficial, 0.0, pais));
+                lista.add(new IdiomaPais(idioma, esOficial, porcentaje, pais));
             }
         } catch (SQLException e) {
                 System.err.println("Error de Select: " + e.getMessage());

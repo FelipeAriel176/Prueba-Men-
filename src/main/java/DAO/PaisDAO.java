@@ -13,10 +13,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PaisDAO {
-    private static final String SQL_SELECT_ALL = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais";
+    private static final String SQL_SELECT_ALL = "SELECT p.*, c.nombreCiudad as nombre_capital FROM Pais p LEFT JOIN Ciudad c ON p.capital = c.idCiudad";
     private static final String SQL_SELECT_FILTER_NAME = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais WHERE nombrePais LIKE ?";
     private static final String SQL_SELECT_FILTER_CONTINENT = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais WHERE continentePais = ?";
     private static final String SQL_SELECT_BY_CODE = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais WHERE codigoPais = ?";
+    
     public ArrayList<Pais> listarPaises() {
         return ejecutarSelect(SQL_SELECT_ALL);
     }

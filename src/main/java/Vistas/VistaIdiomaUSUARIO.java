@@ -45,6 +45,7 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
         cmbIdioma = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnRanking = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +82,13 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Filtrar por país");
 
+        btnRanking.setText("Ver ranking mundial");
+        btnRanking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRankingActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,11 +97,12 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addComponent(jLabel2)))
+                                .addComponent(jLabel2))
+                            .addComponent(btnRanking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbIdioma, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -115,12 +124,16 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
                         .addComponent(jLabel1)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cmbIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRanking)
+                        .addGap(45, 45, 45))))
         );
 
         pack();
@@ -130,12 +143,14 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("Idioma");
         modeloTabla.addColumn("Oficial");
-        modeloTabla.addColumn("Código país");        
+        modeloTabla.addColumn("Código país");
+        modeloTabla.addColumn("Porcentaje");        
         for (Modelo.IdiomaPais i : listaIdiomasAMostrar) {
                 modeloTabla.addRow(new Object[]{
                 i.getIdioma(),
                 i.isEsOficial() ? "Si" : "No", 
                 i.getPais().getCodigo(),
+                i.getPorcentajeHablantes() + "%",
     });
         }
         tblIdioma.setModel(modeloTabla);
@@ -181,6 +196,12 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmbIdiomaActionPerformed
 
+    private void btnRankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRankingActionPerformed
+        ArrayList<IdiomaPais> listaRanking = idiomaDAO.listarIdiomasRanking();
+        actualizarTabla();
+        cmbIdioma.setSelectedIndex(0);     
+    }//GEN-LAST:event_btnRankingActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -207,6 +228,7 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRanking;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cmbIdioma;
     private javax.swing.JLabel jLabel1;

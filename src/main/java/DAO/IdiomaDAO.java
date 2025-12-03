@@ -14,9 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class IdiomaDAO {
-
-    private final PaisDAO paisDAO = new PaisDAO();
-
     private static final String SQL_SELECT_ALL = "SELECT nombreIdioma, oficial, codigoPais FROM Idioma";
     private static final String SQL_SELECT_BY_COUNTRY = "SELECT nombreIdioma, oficial, codigoPais FROM Idioma WHERE codigoPais = ?";
     

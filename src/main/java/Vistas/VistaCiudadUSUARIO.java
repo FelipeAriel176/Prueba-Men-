@@ -53,13 +53,13 @@ import javax.swing.table.DefaultTableModel;/**
 
         tblCiudades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Ciudad", "Poblacion", "Código país"
+                "Ciudad", "Distrito", "Poblacion", "Código país"
             }
         ));
         jScrollPane1.setViewportView(tblCiudades);
@@ -178,12 +178,14 @@ import javax.swing.table.DefaultTableModel;/**
         DefaultTableModel modeloTabla = new DefaultTableModel();
        
         modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Distrito");
         modeloTabla.addColumn("Población");
         modeloTabla.addColumn("Código país");
         
         for (Modelo.Ciudad c : listarCiudades) {
             modeloTabla.addRow(new Object[]{
                 c.getNombre(),
+                c.getDistrito(),
                 c.getPoblacion(),
                 c.getPais().getCodigo()
                 });

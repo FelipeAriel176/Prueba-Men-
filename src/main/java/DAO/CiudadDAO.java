@@ -14,13 +14,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CiudadDAO {
+    private static final String SQL_SELECT_FILTER_NAME = "SELECT nombreCiudad, distritoCiudad, poblacionCiudad, codigoPais FROM Ciudad WHERE nombreCiudad LIKE ?";
+    private static final String SQL_SELECT_TOP_CITIES = "SELECT nombreCiudad, distritoCiudad, poblacionCiudad, codigoPais FROM Ciudad ORDER BY poblacionCiudad DESC";    
+    private static final String SQL_SELECT_ALL = "SELECT nombreCiudad, distritoCiudad, poblacionCiudad, codigoPais FROM Ciudad";
+    private static final String SQL_SELECT_BY_COUNTRY = "SELECT nombreCiudad, distritoCiudad, poblacionCiudad, codigoPais FROM Ciudad WHERE codigoPais = ?";
     
-    private final PaisDAO paisDAO = new PaisDAO();
-    private static final String SQL_SELECT_FILTER_NAME = "SELECT nombreCiudad, poblacionCiudad, codigoPais FROM Ciudad WHERE nombreCiudad LIKE ?";
-    private static final String SQL_SELECT_TOP_CITIES = "SELECT nombreCiudad, poblacionCiudad, codigoPais FROM Ciudad ORDER BY poblacionCiudad DESC";    
-    private static final String SQL_SELECT_ALL = "SELECT nombreCiudad, poblacionCiudad, codigoPais FROM Ciudad";
-    private static final String SQL_SELECT_BY_COUNTRY = "SELECT nombreCiudad, poblacionCiudad, codigoPais FROM Ciudad WHERE codigoPais = ?";
-
     public ArrayList<Ciudad> listarCiudadesFiltradas(String textoBuscado) {
     return ejecutarSelect(SQL_SELECT_FILTER_NAME, "%" + textoBuscado + "%");
     }
@@ -53,12 +51,12 @@ public class CiudadDAO {
 
                 while (rs.next()) {
                 String nombre = rs.getString("nombreCiudad");
+                String distrito = rs.getString("distritoCiudad");
                 int poblacion = rs.getInt("poblacionCiudad");
                 String paisCodigoStr = rs.getString("codigoPais");                
                 Pais pais = new Pais(paisCodigoStr, "", "", 0, false, 0.0f, 0.0f);
-                lista.add(new Ciudad(nombre, null, poblacion, pais));
+                lista.add(new Ciudad(nombre, distrito, poblacion, pais));
                 }
-                
         } 
         catch (SQLException e) {
             System.err.println("Error de Select en ciudad: " + e.getMessage());

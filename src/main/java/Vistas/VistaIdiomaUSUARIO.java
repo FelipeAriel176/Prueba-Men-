@@ -58,13 +58,13 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
 
         tblIdioma.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Idioma", "Oficial", "Código país"
+                "Idioma", "Oficial", "Código país", "null"
             }
         ));
         jScrollPane1.setViewportView(tblIdioma);

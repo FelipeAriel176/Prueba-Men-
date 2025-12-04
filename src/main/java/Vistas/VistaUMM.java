@@ -75,7 +75,7 @@ public class VistaUMM extends javax.swing.JFrame {
         jTablePais.setModel(modelo);
     }
     
-    private void actualizarTablaIdiomas(java.util.ArrayList<Modelo.IdiomaPais> listaIdiomasAMostrar) {
+    private void actualizarTablaIdiomas(ArrayList<Modelo.IdiomaPais> listaIdiomasAMostrar) {
     DefaultTableModel modeloTabla = new DefaultTableModel();
     
     modeloTabla.addColumn("Idioma");
@@ -103,9 +103,6 @@ public class VistaUMM extends javax.swing.JFrame {
     }
     jTableCiudades.setModel(modeloTabla);
 }
-    
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -248,7 +248,7 @@ import java.util.Set;
         actualizarTabla();
         return;
     }
-        java.util.ArrayList<Modelo.Pais> resultados = paisDAO.listarPaisesFiltrados(nombreBuscado);
+        ArrayList<Modelo.Pais> resultados = paisDAO.listarPaisesFiltrados(nombreBuscado);
         actualizarTabla(resultados);
     }//GEN-LAST:event_btnBuscarActionPerformed
 

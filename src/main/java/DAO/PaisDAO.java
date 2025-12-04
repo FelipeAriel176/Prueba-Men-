@@ -17,6 +17,9 @@ public class PaisDAO {
     private static final String SQL_SELECT_FILTER_NAME = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais WHERE nombrePais LIKE ?";
     private static final String SQL_SELECT_FILTER_CONTINENT = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais WHERE continentePais = ?";
     private static final String SQL_SELECT_BY_CODE = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais WHERE codigoPais = ?";
+    private static final String SQL_INSERT = "INSERT INTO Pais (codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE = "UPDATE Pais SET nombrePais=?, continentePais=?, poblacionPais=?, tipoGobierno=? WHERE codigoPais=?";
+    private static final String SQL_DELETE = "DELETE FROM Pais WHERE codigoPais=?";
     
     public ArrayList<Pais> listarPaises() {
         return ejecutarSelect(SQL_SELECT_ALL);
@@ -34,6 +37,20 @@ public class PaisDAO {
         ArrayList<Pais> resultado = ejecutarSelect(SQL_SELECT_BY_CODE, String.valueOf(codigo));
         return resultado.isEmpty() ? null : resultado.get(0);
         }
+    
+    public boolean eliminarPais(String codigo) {
+    Connection conn = null;
+    PreparedStatement ps = null;
+    try {
+        conn = Conexion.getInstancia();
+        ps = conn.prepareStatement(SQL_DELETE);
+        ps.setString(1, codigo);
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.err.println("Error al eliminar: " + e.getMessage());
+        return false;
+    }
+}
 
      private ArrayList<Pais> ejecutarSelect(String sql, String... params) {
         ArrayList<Pais> lista = new ArrayList<>();

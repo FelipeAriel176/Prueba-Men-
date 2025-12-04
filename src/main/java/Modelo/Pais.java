@@ -42,9 +42,6 @@ public class Pais {
         this.idCapital = idCapital;
     }
     
-    // ... (Debajo de tu constructor grande) ...
-
-    // Constructor auxiliar solo con el código (para usar en DAOs de Ciudad e Idioma)
     public Pais(String codigo) {
         this.codigo = codigo;
         this.nombre = "";

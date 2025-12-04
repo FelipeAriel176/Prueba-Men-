@@ -1,10 +1,45 @@
 package Vistas;
 
+import DAO.PaisDAO;
+import Modelo.Pais;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class VistaUMM extends javax.swing.JFrame {
 
     public VistaUMM() {
         initComponents();
-
+        actualizarTabla();
+    }
+    
+    private void limpiarCampos() {
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtPoblacion.setText("");
+        chkTipoGobierno.setSelected(false);
+        cboxContinente.setSelectedIndex(0);
+    }
+    
+    private void actualizarTabla() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Continente");
+        modelo.addColumn("Población");
+        modelo.addColumn("Gobierno");
+        
+        ArrayList<Pais> lista = paisDAO.listarPaises();
+        for (Pais p : lista) {
+            modelo.addRow(new Object[]{
+                p.getCodigo(),
+                p.getNombre(),
+                p.getContinente(),
+                p.getPoblacion(),
+                p.getTipoGobierno()
+            });
+        }
+        jTablePais.setModel(modelo);
     }
 
     /**
@@ -370,7 +405,24 @@ public class VistaUMM extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarCiudadActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+String codigo = txtCodigo.getText();
+    
+    if (codigo.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Ingrese el código del país a eliminar");
+        return;
+    }
+
+    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar el país " + codigo + "?");
+    
+    if (confirmacion == JOptionPane.YES_OPTION) {
+        if (PaisDAO.eliminarPais(codigo)) {
+            JOptionPane.showMessageDialog(this, "País eliminado");
+            actualizarTabla();
+            limpiarCampos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al eliminar");
+        }
+    }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed

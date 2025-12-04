@@ -516,14 +516,38 @@ public class VistaUMM extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+   try {
         String codigo = txtCodigo.getText().trim();
         String nombre = txtNombre.getText().trim();
-        String continente = cboxContinente.getSelectedItem().toString();       
+        String continente = cboxContinente.getSelectedItem().toString();
+        
         if (codigo.isEmpty() || nombre.isEmpty() || txtPoblacion.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe completar todos los campos obligatorios.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe completar Código, Nombre y Población.");
             return;
         }
-          
+        int poblacion = Integer.parseInt(txtPoblacion.getText().trim());
+        String gobierno = chkTipoGobierno.isSelected() ? "Democracia" : "Otro"; 
+        Modelo.Pais pais = new Modelo.Pais(
+            codigo, 
+            nombre, 
+            continente, 
+            poblacion, 
+            gobierno, 
+            0f, 0f, "", 0, 0f, "", 0
+        );
+        if (paisDAO.registrarPais(pais)) {
+            JOptionPane.showMessageDialog(this, "País agregado con éxito.");
+            actualizarTabla(); 
+            limpiarCampos();  
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al registrar el país.");
+        }
+        
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "La Población debe ser un número entero válido.");
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error: " + e.getMessage());
+    }
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed

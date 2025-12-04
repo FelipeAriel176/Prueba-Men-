@@ -468,7 +468,15 @@ public class VistaUMM extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        //Acá codificará el Evento para Crear un País.
+        String codigo = txtCodigo.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        String continente = cboxContinente.getSelectedItem().toString();       
+        if (codigo.isEmpty() || nombre.isEmpty() || txtPoblacion.getText().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe completar todos los campos obligatorios.");
+            return;
+        }
+        
+    
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed

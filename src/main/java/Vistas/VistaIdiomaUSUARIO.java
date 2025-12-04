@@ -187,10 +187,8 @@ public class VistaIdiomaUSUARIO extends javax.swing.JFrame {
                 return;
                 }
         if (itemSeleccionado instanceof Pais) {
-                Pais paisSeleccionado = (Pais) itemSeleccionado;
-                
-                String codigoPais = paisSeleccionado.getCodigo();
-                
+                Pais paisSeleccionado = (Pais) itemSeleccionado;                
+                String codigoPais = paisSeleccionado.getCodigo();               
                 ArrayList<IdiomaPais> resultadosFiltrados = idiomaDAO.listarIdiomasPorPais(codigoPais); 
                 actualizarTabla(resultadosFiltrados);
         }

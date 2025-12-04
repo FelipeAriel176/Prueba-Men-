@@ -34,6 +34,7 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
         btnPaises = new javax.swing.JButton();
         btnIdioma = new javax.swing.JButton();
         btnComparar = new javax.swing.JButton();
+        btnUMM = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +71,13 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
             }
         });
 
+        btnUMM.setText("UMM");
+        btnUMM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUMMActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,13 +94,17 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnComparar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnPaises, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
+                                .addComponent(btnPaises, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 68, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(122, 122, 122)
+                .addComponent(btnComparar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnUMM, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,9 +118,11 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
                     .addComponent(btnCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPaises, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnComparar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnComparar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUMM, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,6 +151,12 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
     this.setVisible(false);
     vC.setVisible(true);    }//GEN-LAST:event_btnCompararActionPerformed
 
+    private void btnUMMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUMMActionPerformed
+        VistaUMM VuM = new VistaUMM();
+        this.setVisible(false);
+        VuM.setVisible(true);
+    }//GEN-LAST:event_btnUMMActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -149,6 +169,7 @@ public class VistaMenúUSUARIO extends javax.swing.JFrame {
     private javax.swing.JButton btnComparar;
     private javax.swing.JButton btnIdioma;
     private javax.swing.JButton btnPaises;
+    private javax.swing.JButton btnUMM;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables

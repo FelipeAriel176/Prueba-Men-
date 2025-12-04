@@ -36,10 +36,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="btnCiudades" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnComparar" max="32767" attributes="0"/>
-                                  <Component id="btnPaises" pref="90" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="btnPaises" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnIdioma" min="-2" pref="90" max="-2" attributes="0"/>
                           </Group>
@@ -48,6 +45,13 @@
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
+              <Component id="btnComparar" min="-2" pref="90" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnUMM" min="-2" pref="90" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -64,9 +68,12 @@
                   <Component id="btnIdioma" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="btnPaises" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnComparar" min="-2" pref="40" max="-2" attributes="0"/>
-              <EmptySpace pref="57" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnComparar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="btnUMM" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="63" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -115,6 +122,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCompararActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnUMM">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="UMM"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUMMActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

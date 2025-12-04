@@ -1,6 +1,7 @@
 package Vistas;
 
 import DAO.CiudadDAO;
+import DAO.IdiomaDAO;
 import DAO.PaisDAO;
 import Modelo.Pais;
 import java.util.ArrayList;
@@ -12,11 +13,13 @@ public class VistaUMM extends javax.swing.JFrame {
     
     private final PaisDAO paisDAO = new PaisDAO();
     private final CiudadDAO ciudadDAO = new CiudadDAO();
+    private final IdiomaDAO idiomaDAO = new IdiomaDAO();
     
     public VistaUMM() {
         initComponents();
         actualizarTabla();
         cargarPaisesCiudades();
+        cargarPaisesIdiomas();
     }
     
     private void limpiarCampos() {
@@ -28,14 +31,27 @@ public class VistaUMM extends javax.swing.JFrame {
     }
     
     private void cargarPaisesCiudades() {
-    javax.swing.DefaultComboBoxModel<String> modelo = new javax.swing.DefaultComboBoxModel<>(); 
+    DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(); 
     modelo.addElement("Mostrar todas las ciudades");
-    java.util.ArrayList<Modelo.Pais> listaPaises = paisDAO.listarPaises();   
+    ArrayList<Modelo.Pais> listaPaises = paisDAO.listarPaises();   
     for (Modelo.Pais p : listaPaises) {
         modelo.addElement(p.getNombre());
     }
     jComboBox1.setModel(modelo); 
      actualizarTablaCiudades(ciudadDAO.listarCiudades()); 
+}
+    
+    private void cargarPaisesIdiomas() {
+    DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();    
+    modelo.addElement("Mostrar todos los idiomas"); 
+    ArrayList<Modelo.Pais> listaPaises = paisDAO.listarPaises();
+    
+    for (Modelo.Pais p : listaPaises) {
+        modelo.addElement(p.getNombre());
+    }
+    jComboBox2.setModel(modelo); 
+    
+    actualizarTablaIdiomas(idiomaDAO.listarIdiomas()); 
 }
     
     private void actualizarTabla() {
@@ -59,23 +75,36 @@ public class VistaUMM extends javax.swing.JFrame {
         jTablePais.setModel(modelo);
     }
     
+    private void actualizarTablaIdiomas(java.util.ArrayList<Modelo.IdiomaPais> listaIdiomasAMostrar) {
+    DefaultTableModel modeloTabla = new DefaultTableModel();
+    
+    modeloTabla.addColumn("Idioma");
+    modeloTabla.addColumn("Oficial");
+    
+    for (Modelo.IdiomaPais i : listaIdiomasAMostrar) {
+        modeloTabla.addRow(new Object[]{
+            i.getIdioma(),
+            i.isEsOficial() ? "Sí" : "No",
+        });
+    }
+    jTableCiudades1.setModel(modeloTabla);
+}
+    
     private void actualizarTablaCiudades(ArrayList<Modelo.Ciudad> listaCiudadesAMostrar) {
     DefaultTableModel modeloTabla = new DefaultTableModel();
     modeloTabla.addColumn("Ciudad");
-    modeloTabla.addColumn("Distrito");
     modeloTabla.addColumn("Población");
-    modeloTabla.addColumn("Código País");
     
     for (Modelo.Ciudad c : listaCiudadesAMostrar) {
         modeloTabla.addRow(new Object[]{
             c.getNombre(),
-            c.getDistrito(),
             c.getPoblacion(),
-            c.getPais().getCodigo()
         });
     }
     jTableCiudades.setModel(modeloTabla);
 }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -383,6 +412,11 @@ public class VistaUMM extends javax.swing.JFrame {
         });
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Argentina", "Brasil", "Chile" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelCiudades1Layout = new javax.swing.GroupLayout(jPanelCiudades1);
         jPanelCiudades1.setLayout(jPanelCiudades1Layout);
@@ -447,18 +481,18 @@ public class VistaUMM extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
     String codigo = txtCodigo.getText();
     if (codigo.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Ingrese el código a eliminar");
+        JOptionPane.showMessageDialog(this, "Ingrese el código a eliminar");
         return;
     }
-    int confirmacion = javax.swing.JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar el país " + codigo + "?");
+    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar el país " + codigo + "?");
 
-    if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
+    if (confirmacion == JOptionPane.YES_OPTION) {
         if (paisDAO.eliminarPais(codigo)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "País eliminado");
+           JOptionPane.showMessageDialog(this, "País eliminado");
             actualizarTabla();
             limpiarCampos();
         } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error al eliminar");
+            JOptionPane.showMessageDialog(this, "Error al eliminar");
         }
     }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -472,11 +506,10 @@ public class VistaUMM extends javax.swing.JFrame {
         String nombre = txtNombre.getText().trim();
         String continente = cboxContinente.getSelectedItem().toString();       
         if (codigo.isEmpty() || nombre.isEmpty() || txtPoblacion.getText().isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Debe completar todos los campos obligatorios.");
+            JOptionPane.showMessageDialog(this, "Debe completar todos los campos obligatorios.");
             return;
         }
-        
-    
+          
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -493,7 +526,7 @@ public class VistaUMM extends javax.swing.JFrame {
         actualizarTablaCiudades(ciudadDAO.listarCiudades());
         return;
     }
-    java.util.ArrayList<Modelo.Pais> listaPaises = paisDAO.listarPaises();
+    ArrayList<Modelo.Pais> listaPaises = paisDAO.listarPaises();
     String codigoPais = null;
     
     for (Modelo.Pais p : listaPaises) {
@@ -503,12 +536,35 @@ public class VistaUMM extends javax.swing.JFrame {
         }
     }
     if (codigoPais != null) {
-        java.util.ArrayList<Modelo.Ciudad> resultadosFiltrados = ciudadDAO.listarCiudades(codigoPais);
+        ArrayList<Modelo.Ciudad> resultadosFiltrados = ciudadDAO.listarCiudades(codigoPais);
         actualizarTablaCiudades(resultadosFiltrados);
     } else {
         actualizarTablaCiudades(new java.util.ArrayList<>());
     }
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    String nombrePaisSeleccionado = (String) jComboBox2.getSelectedItem();   
+    if (nombrePaisSeleccionado == null || nombrePaisSeleccionado.equals("Mostrar todos los idiomas")) {
+        actualizarTablaIdiomas(idiomaDAO.listarIdiomas());
+        return;
+    }
+    ArrayList<Modelo.Pais> listaPaises = paisDAO.listarPaises();
+    String codigoPais = null;
+    
+    for (Modelo.Pais p : listaPaises) {
+        if (p.getNombre().equals(nombrePaisSeleccionado)) {
+            codigoPais = p.getCodigo();
+            break;
+        }
+    }
+    if (codigoPais != null) {
+        ArrayList<Modelo.IdiomaPais> resultadosFiltrados = idiomaDAO.listarIdiomasPorPais(codigoPais);
+        actualizarTablaIdiomas(resultadosFiltrados);
+    } else {
+        actualizarTablaIdiomas(new java.util.ArrayList<>());
+    }    
+    }//GEN-LAST:event_jComboBox2ActionPerformed
     /**
      * @param args the command line arguments
      */

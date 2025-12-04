@@ -39,6 +39,10 @@ public class IdiomaPais {
     public void setEsOficial(boolean esOficial) {
         this.esOficial = esOficial;
     }
+    
+    public String getEsOficial() {
+        return idioma;
+    }
 
     public double getPorcentajeHablantes() {
         return porcentajeHablantes;

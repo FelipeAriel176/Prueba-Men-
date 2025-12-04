@@ -1,16 +1,22 @@
 package Vistas;
 
+import DAO.CiudadDAO;
 import DAO.PaisDAO;
 import Modelo.Pais;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class VistaUMM extends javax.swing.JFrame {
-
+    
+    private final PaisDAO paisDAO = new PaisDAO();
+    private final CiudadDAO ciudadDAO = new CiudadDAO();
+    
     public VistaUMM() {
         initComponents();
         actualizarTabla();
+        cargarPaisesCiudades();
     }
     
     private void limpiarCampos() {
@@ -20,6 +26,17 @@ public class VistaUMM extends javax.swing.JFrame {
         chkTipoGobierno.setSelected(false);
         cboxContinente.setSelectedIndex(0);
     }
+    
+    private void cargarPaisesCiudades() {
+    javax.swing.DefaultComboBoxModel<String> modelo = new javax.swing.DefaultComboBoxModel<>(); 
+    modelo.addElement("Mostrar todas las ciudades");
+    java.util.ArrayList<Modelo.Pais> listaPaises = paisDAO.listarPaises();   
+    for (Modelo.Pais p : listaPaises) {
+        modelo.addElement(p.getNombre());
+    }
+    jComboBox1.setModel(modelo); 
+     actualizarTablaCiudades(ciudadDAO.listarCiudades()); 
+}
     
     private void actualizarTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -41,6 +58,24 @@ public class VistaUMM extends javax.swing.JFrame {
         }
         jTablePais.setModel(modelo);
     }
+    
+    private void actualizarTablaCiudades(ArrayList<Modelo.Ciudad> listaCiudadesAMostrar) {
+    DefaultTableModel modeloTabla = new DefaultTableModel();
+    modeloTabla.addColumn("Ciudad");
+    modeloTabla.addColumn("Distrito");
+    modeloTabla.addColumn("Población");
+    modeloTabla.addColumn("Código País");
+    
+    for (Modelo.Ciudad c : listaCiudadesAMostrar) {
+        modeloTabla.addRow(new Object[]{
+            c.getNombre(),
+            c.getDistrito(),
+            c.getPoblacion(),
+            c.getPais().getCodigo()
+        });
+    }
+    jTableCiudades.setModel(modeloTabla);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -277,6 +312,11 @@ public class VistaUMM extends javax.swing.JFrame {
         });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Argentina", "Brasil", "Chile" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelCiudadesLayout = new javax.swing.GroupLayout(jPanelCiudades);
         jPanelCiudades.setLayout(jPanelCiudadesLayout);
@@ -401,26 +441,24 @@ public class VistaUMM extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarCiudadActionPerformed
-        // TODO add your handling code here:
+    jComboBox1ActionPerformed(evt);    
     }//GEN-LAST:event_btnConsultarCiudadActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-String codigo = txtCodigo.getText();
-    
+    String codigo = txtCodigo.getText();
     if (codigo.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Ingrese el código del país a eliminar");
+        javax.swing.JOptionPane.showMessageDialog(this, "Ingrese el código a eliminar");
         return;
     }
+    int confirmacion = javax.swing.JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar el país " + codigo + "?");
 
-    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar el país " + codigo + "?");
-    
-    if (confirmacion == JOptionPane.YES_OPTION) {
-        if (PaisDAO.eliminarPais(codigo)) {
-            JOptionPane.showMessageDialog(this, "País eliminado");
+    if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
+        if (paisDAO.eliminarPais(codigo)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "País eliminado");
             actualizarTabla();
             limpiarCampos();
         } else {
-            JOptionPane.showMessageDialog(this, "Error al eliminar");
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al eliminar");
         }
     }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -440,6 +478,29 @@ String codigo = txtCodigo.getText();
     private void btnConsultarIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarIdiomaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConsultarIdiomaActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    String nombrePaisSeleccionado = (String) jComboBox1.getSelectedItem(); 
+    if (nombrePaisSeleccionado == null || nombrePaisSeleccionado.equals("Mostrar todas las ciudades")) {
+        actualizarTablaCiudades(ciudadDAO.listarCiudades());
+        return;
+    }
+    java.util.ArrayList<Modelo.Pais> listaPaises = paisDAO.listarPaises();
+    String codigoPais = null;
+    
+    for (Modelo.Pais p : listaPaises) {
+        if (p.getNombre().equals(nombrePaisSeleccionado)) {
+            codigoPais = p.getCodigo();
+            break;
+        }
+    }
+    if (codigoPais != null) {
+        java.util.ArrayList<Modelo.Ciudad> resultadosFiltrados = ciudadDAO.listarCiudades(codigoPais);
+        actualizarTablaCiudades(resultadosFiltrados);
+    } else {
+        actualizarTablaCiudades(new java.util.ArrayList<>());
+    }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
     /**
      * @param args the command line arguments
      */

@@ -17,8 +17,6 @@ public class PaisDAO {
     private static final String SQL_SELECT_FILTER_NAME = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais WHERE nombrePais LIKE ?";
     private static final String SQL_SELECT_FILTER_CONTINENT = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais WHERE continentePais = ?";
     private static final String SQL_SELECT_BY_CODE = "SELECT codigoPais, nombrePais, continentePais, region, poblacionPais, tipoGobierno, superficie, indepYear, esperanzaVida, gnp, jefeEstado, capital FROM Pais WHERE codigoPais = ?";
-    private static final String SQL_INSERT = "INSERT INTO Pais (codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno) VALUES (?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE Pais SET nombrePais=?, continentePais=?, poblacionPais=?, tipoGobierno=? WHERE codigoPais=?";
     private static final String SQL_DELETE = "DELETE FROM Pais WHERE codigoPais=?";
     
     public ArrayList<Pais> listarPaises() {
